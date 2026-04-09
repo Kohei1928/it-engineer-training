@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html,body{height:auto;overflow:auto}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#F5F6FA;--bg2:#FFFFFF;--bg3:#EBEDF3;--text:#1A2744;--text2:#4B5563;--text3:#9CA3AF;
+--blue:#3B6FB6;--blue-bg:#E6F1FB;--blue-border:#B5D4F4;
+--teal:#0F6E56;--teal-bg:#E1F5EE;--teal-border:#9FE1CB;
+--purple:#534AB7;--purple-bg:#EEEDFE;--purple-border:#CECBF6;
+--coral:#993C1D;--coral-bg:#FAECE7;--coral-border:#F5C4B3;
+--amber:#854F0B;--amber-bg:#FAEEDA;--amber-border:#FAC775;
+--green:#3B6D11;--green-bg:#EAF3DE;--green-border:#C0DD97;
+--red:#A32D2D;--red-bg:#FCEBEB;--red-border:#F7C1C1;
+--gray-bg:#F1EFE8;--gray-border:#D3D1C7;
+--sidebar-w:260px;--radius:12px;--radius-sm:8px;
+}
+@media(prefers-color-scheme:dark){
+:root{
+--bg:#0F1117;--bg2:#1A1D27;--bg3:#252830;--text:#E5E7EB;--text2:#9CA3AF;--text3:#6B7280;
+--blue:#85B7EB;--blue-bg:#0C447C;--blue-border:#185FA5;
+--teal:#5DCAA5;--teal-bg:#04342C;--teal-border:#085041;
+--purple:#AFA9EC;--purple-bg:#26215C;--purple-border:#3C3489;
+--coral:#F0997B;--coral-bg:#4A1B0C;--coral-border:#712B13;
+--amber:#FAC775;--amber-bg:#412402;--amber-border:#633806;
+--green:#97C459;--green-bg:#173404;--green-border:#27500A;
+--red:#F09595;--red-bg:#501313;--red-border:#791F1F;
+--gray-bg:#2C2C2A;--gray-border:#444441;
+}
+}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;display:flex;min-height:100vh}
+a{color:var(--blue);text-decoration:none}
+
+/* Sidebar */
+.sidebar{width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--bg3);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;transition:transform .3s}
+.sidebar-header{padding:24px 20px 16px;border-bottom:1px solid var(--bg3)}
+.sidebar-header h1{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px}
+.sidebar-header p{font-size:11px;color:var(--text3)}
+.nav-section{padding:12px 12px 4px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;margin:2px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;border:none;background:none;width:calc(100% - 16px);text-align:left}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--blue-bg);color:var(--blue);font-weight:600}
+.nav-num{width:22px;height:22px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.nav-item.active .nav-num{background:var(--blue);color:#fff}
+
+/* Main */
+.main{margin-left:var(--sidebar-w);flex:1;padding:32px 40px;max-width:900px}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-size:24px;font-weight:700;margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text3);margin-bottom:24px}
+
+/* Mobile toggle */
+.menu-toggle{display:none;position:fixed;top:12px;left:12px;z-index:200;width:40px;height:40px;border-radius:var(--radius-sm);background:var(--bg2);border:1px solid var(--bg3);cursor:pointer;align-items:center;justify-content:center;font-size:20px}
+@media(max-width:768px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;padding:20px 16px;padding-top:60px}
+.menu-toggle{display:flex}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
+.overlay.show{display:block}
+}
+
+/* Shared components */
+.card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:16px 20px;margin-bottom:10px}
+.card-title{font-size:15px;font-weight:600;margin-bottom:2px}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.7}
+.badge{font-size:11px;font-weight:500;padding:2px 10px;border-radius:20px;display:inline-block;margin-bottom:6px}
+.badge-fe{background:var(--blue-bg);color:var(--blue)}
+.badge-be{background:var(--purple-bg);color:var(--purple)}
+.badge-infra{background:var(--amber-bg);color:var(--amber)}
+.badge-data{background:var(--teal-bg);color:var(--teal)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-gray{background:var(--gray-bg);color:var(--text2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+.grid-item{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:8px 10px}
+.grid-item-name{font-size:13px;font-weight:600}
+.grid-item-desc{font-size:10px;color:var(--text3);margin-top:2px}
+.grid-item-kw{font-size:10px;font-family:monospace;color:var(--text2);margin-top:4px}
+.arrow-text{text-align:center;font-size:12px;color:var(--text3);padding:4px 0}
+.layer{border-radius:var(--radius);padding:14px 18px;margin-bottom:8px}
+.layer-fe{background:var(--blue-bg);border:1px solid var(--blue-border)}
+.layer-be{background:var(--purple-bg);border:1px solid var(--purple-border)}
+.layer-infra{background:var(--amber-bg);border:1px solid var(--amber-border)}
+.layer-what{font-size:13px;font-weight:600;margin:6px 0 4px}
+.layer-how{font-size:12px;color:var(--text2);line-height:1.7}
+.layer-tech{font-size:11px;font-family:monospace;color:var(--text3);margin-top:6px}
+
+/* Scene tabs */
+.scene-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.scene-tab{font-size:13px;padding:8px 14px;border-radius:var(--radius-sm);border:1px solid var(--bg3);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all .15s}
+.scene-tab:hover{background:var(--bg3)}
+.scene-tab.active{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border);font-weight:600}
+.scene-container{display:none}
+.scene-container.active{display:block}
+
+/* Comparison cards */
+.comp{border-radius:var(--radius);padding:16px 20px;margin-bottom:10px}
+.comp-ses{background:var(--amber-bg);border:1px solid var(--amber-border)}
+.comp-jut{background:var(--blue-bg);border:1px solid var(--blue-border)}
+.comp-jis{background:var(--green-bg);border:1px solid var(--green-border)}
+.comp-title{font-size:15px;font-weight:600;margin-bottom:2px}
+.comp-analogy{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:8px}
+.comp-desc{font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.7}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:500px){.comp-grid{grid-template-columns:1fr}}
+.comp-cell{background:var(--bg2);border:1px solid var(--bg3);border-radius:6px;padding:8px 10px}
+.comp-cell-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.comp-cell-val{font-size:13px}
+
+/* Market difficulty */
+.mk{border-radius:var(--radius);padding:16px 20px;margin-bottom:10px}
+.mk-easy{background:var(--green-bg);border:1px solid var(--green-border)}
+.mk-mid{background:var(--amber-bg);border:1px solid var(--amber-border)}
+.mk-hard{background:var(--red-bg);border:1px solid var(--red-border)}
+
+/* Tech stack */
+.stk{border-radius:var(--radius);padding:14px 18px;margin-bottom:8px;background:var(--bg2);border:1px solid var(--bg3)}
+.stk-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px}
+.stk-name{font-size:14px;font-weight:600}
+.stk-flow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.stk-tag{font-size:12px;font-family:monospace;padding:3px 8px;border-radius:5px;background:var(--bg);border:1px solid var(--bg3)}
+.stk-ar{color:var(--text3);font-size:12px}
+.stk-note{font-size:11px;color:var(--text2)}
+
+/* Talk scripts */
+.talk{border-radius:var(--radius);padding:16px 20px;margin-bottom:10px;background:var(--bg2);border:1px solid var(--bg3)}
+.talk-q{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:flex-start;gap:6px}
+.talk-icon{font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--blue-bg);color:var(--blue);white-space:nowrap;flex-shrink:0;margin-top:2px}
+.talk-a{font-size:13px;color:var(--text2);line-height:1.8;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--bg3)}
+.talk-note{font-size:11px;color:var(--text3);margin-top:6px;padding-left:14px;border-left:2px solid var(--bg3)}
+
+/* FAQ */
+.faq{border-radius:var(--radius);padding:14px 18px;margin-bottom:8px;background:var(--bg2);border:1px solid var(--bg3)}
+.faq-wrong{font-size:13px;font-weight:600;color:var(--red);margin-bottom:6px;display:flex;align-items:flex-start;gap:6px}
+.faq-x{font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--red-bg);color:var(--red);white-space:nowrap;flex-shrink:0;margin-top:1px}
+.faq-right{font-size:13px;line-height:1.7;padding:8px 12px;background:var(--bg);border-radius:var(--radius-sm);border-left:3px solid var(--green-border)}
+
+/* Flow steps */
+.flow-box{background:var(--bg2);border-radius:var(--radius);padding:16px 20px;margin-bottom:10px;border:1px solid var(--bg3)}
+.flow-title{font-size:15px;font-weight:600;margin-bottom:10px}
+.flow-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.flow-step{background:var(--bg);border:1px solid var(--bg3);border-radius:6px;padding:6px 10px;text-align:center}
+.flow-step-num{font-size:10px;font-weight:600;color:var(--text3)}
+.flow-step-text{font-size:12px;margin-top:2px}
+.flow-ar{color:var(--text3);font-size:14px}
+.flow-note{font-size:11px;color:var(--text2)}
+
+/* Tip box */
+.tip{background:var(--bg3);border-radius:var(--radius-sm);padding:12px 16px;margin-top:8px}
+.tip-t{font-size:13px;font-weight:600;margin-bottom:4px}
+.tip-b{font-size:12px;color:var(--text2);line-height:1.8}
+
+/* Relation tags */
+.rel-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.rel-tag{font-size:11px;font-family:monospace;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.rel-lang{background:var(--blue-bg);color:var(--blue)}
+.rel-fw{background:var(--green-bg);color:var(--green)}
+.rel-tool{background:var(--amber-bg);color:var(--amber)}
+.rel-arrow{font-size:14px;color:var(--text3)}
+.rel-label{font-size:11px;color:var(--text2)}
+
+/* Overview SVG embed */
+.overview-svg{width:100%;max-width:800px;margin:0 auto;display:block}
+
+/* Print styles */
+@media print{
+.sidebar,.menu-toggle,.overlay{display:none!important}
+.main{margin-left:0;padding:20px}
+.page{display:block!important;page-break-after:always}
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+<div class="overlay" onclick="toggleSidebar()"></div>
+
+<nav class="sidebar">
+<div class="sidebar-header">
+<h1>ITエンジニア研修ガイド</h1>
+<p>CA向け研修資料</p>
+</div>
+<div class="nav-section">基礎知識</div>
+<button class="nav-item active" onclick="showPage(0)"><span class="nav-num">1</span>全体俯瞰マップ</button>
+<button class="nav-item" onclick="showPage(1)"><span class="nav-num">2</span>日常の裏側で起きていること</button>
+<button class="nav-item" onclick="showPage(2)"><span class="nav-num">3</span>職種マップ（全体像）</button>
+<button class="nav-item" onclick="showPage(3)"><span class="nav-num">4</span>キャリアパス</button>
+<div class="nav-section">技術知識</div>
+<button class="nav-item" onclick="showPage(4)"><span class="nav-num">5</span>言語 vs FW vs ツール</button>
+<button class="nav-item" onclick="showPage(5)"><span class="nav-num">6</span>技術スタックパターン</button>
+<div class="nav-section">市場・業界知識</div>
+<button class="nav-item" onclick="showPage(6)"><span class="nav-num">7</span>SES / 受託 / 自社開発</button>
+<button class="nav-item" onclick="showPage(7)"><span class="nav-num">8</span>未経験エンジニア市場</button>
+<div class="nav-section">実践</div>
+<button class="nav-item" onclick="showPage(8)"><span class="nav-num">9</span>トークスクリプト集</button>
+<button class="nav-item" onclick="showPage(9)"><span class="nav-num">10</span>よくある誤解FAQ</button>
+</nav>
+
+<main class="main">
+
+<!-- PAGE 0: Overview -->
+<div class="page active" id="page-0">
+<p class="page-title">Webサービスの全体像とエンジニア職種</p>
+<p class="page-sub">ユーザーの操作が、どのエンジニアの領域を通って届くのか</p>
+<svg class="overview-svg" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" style="font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg)">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="30" y="130" width="120" height="220" rx="16" fill="var(--gray-bg)" stroke="var(--gray-border)" stroke-width="0.5"/>
+<text x="90" y="200" text-anchor="middle" dominant-baseline="central" fill="var(--text)" font-size="14" font-weight="500">ユーザー</text>
+<text x="90" y="222" text-anchor="middle" dominant-baseline="central" fill="var(--text2)" font-size="12">（利用者）</text>
+<text x="90" y="110" text-anchor="middle" fill="var(--text3)" font-size="12">スマホ・PCで</text>
+<text x="90" y="126" text-anchor="middle" fill="var(--text3)" font-size="12">アクセス</text>
+<line x1="150" y1="240" x2="195" y2="240" stroke="var(--text3)" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="172" y="230" text-anchor="middle" fill="var(--text3)" font-size="12">操作</text>
+<rect x="200" y="80" width="210" height="380" rx="16" fill="var(--teal-bg)" stroke="var(--teal-border)" stroke-width="0.5"/>
+<text x="305" y="110" text-anchor="middle" fill="var(--teal)" font-size="15" font-weight="500">フロントエンド</text>
+<text x="305" y="128" text-anchor="middle" fill="var(--teal)" font-size="15" font-weight="500">エンジニア</text>
+<text x="305" y="152" text-anchor="middle" fill="var(--text2)" font-size="12">ユーザーが直接</text>
+<text x="305" y="168" text-anchor="middle" fill="var(--text2)" font-size="12">「見る・触る」画面を作る</text>
+<rect x="225" y="190" width="160" height="40" rx="6" fill="var(--teal-bg)" stroke="var(--teal-border)" stroke-width="0.5"/>
+<text x="305" y="214" text-anchor="middle" dominant-baseline="central" fill="var(--teal)" font-size="12">画面レイアウト</text>
+<rect x="225" y="245" width="160" height="40" rx="6" fill="var(--teal-bg)" stroke="var(--teal-border)" stroke-width="0.5"/>
+<text x="305" y="269" text-anchor="middle" dominant-baseline="central" fill="var(--teal)" font-size="12">ボタン・動き</text>
+<rect x="225" y="300" width="160" height="40" rx="6" fill="var(--teal-bg)" stroke="var(--teal-border)" stroke-width="0.5"/>
+<text x="305" y="324" text-anchor="middle" dominant-baseline="central" fill="var(--teal)" font-size="12">HTML / CSS / JS</text>
+<text x="305" y="380" text-anchor="middle" fill="var(--text2)" font-size="12">レストランの</text>
+<text x="305" y="398" text-anchor="middle" fill="var(--text2)" font-size="12">「ホール係」</text>
+<line x1="410" y1="240" x2="455" y2="240" stroke="var(--text3)" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="432" y="228" text-anchor="middle" fill="var(--text3)" font-size="12">API</text>
+<rect x="460" y="80" width="210" height="380" rx="16" fill="var(--coral-bg)" stroke="var(--coral-border)" stroke-width="0.5"/>
+<text x="565" y="110" text-anchor="middle" fill="var(--coral)" font-size="15" font-weight="500">バックエンド</text>
+<text x="565" y="128" text-anchor="middle" fill="var(--coral)" font-size="15" font-weight="500">エンジニア</text>
+<text x="565" y="152" text-anchor="middle" fill="var(--text2)" font-size="12">裏側でデータ処理</text>
+<text x="565" y="168" text-anchor="middle" fill="var(--text2)" font-size="12">ロジックを担当</text>
+<rect x="485" y="190" width="160" height="40" rx="6" fill="var(--coral-bg)" stroke="var(--coral-border)" stroke-width="0.5"/>
+<text x="565" y="214" text-anchor="middle" dominant-baseline="central" fill="var(--coral)" font-size="12">ロジック処理</text>
+<rect x="485" y="245" width="160" height="40" rx="6" fill="var(--coral-bg)" stroke="var(--coral-border)" stroke-width="0.5"/>
+<text x="565" y="269" text-anchor="middle" dominant-baseline="central" fill="var(--coral)" font-size="12">データベース管理</text>
+<rect x="485" y="300" width="160" height="40" rx="6" fill="var(--coral-bg)" stroke="var(--coral-border)" stroke-width="0.5"/>
+<text x="565" y="324" text-anchor="middle" dominant-baseline="central" fill="var(--coral)" font-size="12">Java / Python / PHP</text>
+<text x="565" y="380" text-anchor="middle" fill="var(--text2)" font-size="12">レストランの</text>
+<text x="565" y="398" text-anchor="middle" fill="var(--text2)" font-size="12">「キッチン」</text>
+<line x1="670" y1="240" x2="715" y2="240" stroke="var(--text3)" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="692" y="228" text-anchor="middle" fill="var(--text3)" font-size="12">稼働</text>
+<rect x="720" y="80" width="210" height="380" rx="16" fill="var(--blue-bg)" stroke="var(--blue-border)" stroke-width="0.5"/>
+<text x="825" y="110" text-anchor="middle" fill="var(--blue)" font-size="15" font-weight="500">インフラ</text>
+<text x="825" y="128" text-anchor="middle" fill="var(--blue)" font-size="15" font-weight="500">エンジニア</text>
+<text x="825" y="152" text-anchor="middle" fill="var(--text2)" font-size="12">すべてを支える</text>
+<text x="825" y="168" text-anchor="middle" fill="var(--text2)" font-size="12">「土台」を構築・運用</text>
+<rect x="745" y="190" width="160" height="40" rx="6" fill="var(--blue-bg)" stroke="var(--blue-border)" stroke-width="0.5"/>
+<text x="825" y="214" text-anchor="middle" dominant-baseline="central" fill="var(--blue)" font-size="12">サーバー構築</text>
+<rect x="745" y="245" width="160" height="40" rx="6" fill="var(--blue-bg)" stroke="var(--blue-border)" stroke-width="0.5"/>
+<text x="825" y="269" text-anchor="middle" dominant-baseline="central" fill="var(--blue)" font-size="12">ネットワーク</text>
+<rect x="745" y="300" width="160" height="40" rx="6" fill="var(--blue-bg)" stroke="var(--blue-border)" stroke-width="0.5"/>
+<text x="825" y="324" text-anchor="middle" dominant-baseline="central" fill="var(--blue)" font-size="12">AWS / セキュリティ</text>
+<text x="825" y="380" text-anchor="middle" fill="var(--text2)" font-size="12">レストランの</text>
+<text x="825" y="398" text-anchor="middle" fill="var(--text2)" font-size="12">「建物・電気・水道」</text>
+<rect x="120" y="490" width="720" height="36" rx="8" fill="var(--gray-bg)" stroke="var(--gray-border)" stroke-width="0.5"/>
+<text x="480" y="512" text-anchor="middle" dominant-baseline="central" fill="var(--text)" font-size="14" font-weight="500">ユーザーの操作 → 画面を作る → データを処理する → その基盤を支える</text>
+</svg>
+</div>
+
+<!-- PAGE 1: Everyday tech -->
+<div class="page" id="page-1">
+<p class="page-title">日常のスマホ・PC操作の裏側で起きていること</p>
+<p class="page-sub">身近なサービスの裏側を知ることで、各職種の役割が直感的にわかる</p>
+<div class="scene-tabs">
+<button class="scene-tab active" onclick="showScene(0)">Google検索</button>
+<button class="scene-tab" onclick="showScene(1)">Instagramに投稿</button>
+<button class="scene-tab" onclick="showScene(2)">Amazonで買い物</button>
+<button class="scene-tab" onclick="showScene(3)">LINEでメッセージ</button>
+<button class="scene-tab" onclick="showScene(4)">YouTubeで動画再生</button>
+</div>
+<div class="scene-container active" id="scene-0"><p class="card-title" style="margin-bottom:4px">Googleで「渋谷 ランチ」と検索する</p><p class="card-desc" style="margin-bottom:12px">検索ボタンを押してから結果が表示されるまでの約0.5秒間に起きていること</p><div class="layer layer-fe"><span class="badge badge-fe">フロントエンド</span><p class="layer-what">検索ボックスに文字を打つと候補が出る / 結果一覧が画面に表示される</p><p class="layer-how">入力中にリアルタイムでサジェスト候補を表示。検索結果のレイアウト（タイトル・URL・説明文の配置）、地図の埋め込み、画像の表示もすべてフロントエンドの仕事。</p><p class="layer-tech">JavaScript / React / HTML / CSS</p></div><div class="arrow-text">↓ 検索キーワードを送信 ↓</div><div class="layer layer-be"><span class="badge badge-be">バックエンド</span><p class="layer-what">数十億のWebページから「渋谷 ランチ」に合う結果を0.5秒で抽出</p><p class="layer-how">検索アルゴリズムがキーワードを解析 → インデックスから該当ページを検索 → 関連性・信頼性でランキング → 結果をフロントに返す。広告の表示判定もここ。</p><p class="layer-tech">Python / C++ / 独自アルゴリズム / BigQuery</p></div><div class="arrow-text">↓ データベースからページ情報を取得 ↓</div><div class="layer layer-infra"><span class="badge badge-infra">インフラ</span><p class="layer-what">世界中のデータセンターで数万台のサーバーが一斉に動く</p><p class="layer-how">最も近いデータセンター（日本なら東京/大阪）にリクエストが届く。数万台のサーバーが並列で検索処理。ネットワーク経路を最適化して0.5秒以内に返す。</p><p class="layer-tech">GCP / Kubernetes / CDN / ロードバランサー</p></div></div>
+<div class="scene-container" id="scene-1"><p class="card-title" style="margin-bottom:4px">Instagramに写真を投稿する</p><p class="card-desc" style="margin-bottom:12px">「投稿」ボタンを押してからフィードに表示されるまでに起きていること</p><div class="layer layer-fe"><span class="badge badge-fe">フロントエンド</span><p class="layer-what">写真の選択画面 / フィルター加工 / キャプション入力 / フィードの表示</p><p class="layer-how">カメラロールから写真を選ぶUI、フィルターのプレビュー、投稿ボタンのタップ後に「投稿中...」のローディング表示。完了後にフィードに新しい投稿がスッと表示される。</p><p class="layer-tech">React Native / JavaScript / Swift (iOS)</p></div><div class="arrow-text">↓ 写真データ + キャプションを送信 ↓</div><div class="layer layer-be"><span class="badge badge-be">バックエンド</span><p class="layer-what">画像のリサイズ・保存 / フォロワー全員のフィードに配信 / ハッシュタグの処理</p><p class="layer-how">写真を複数サイズにリサイズ → ストレージに保存 → フォロワー全員のタイムラインに配信キューを作成 → ハッシュタグをインデックスに登録 → 不適切コンテンツのAI判定。</p><p class="layer-tech">Python / Django / PostgreSQL / Redis</p></div><div class="arrow-text">↓ 画像をストレージに保存、フィードを配信 ↓</div><div class="layer layer-infra"><span class="badge badge-infra">インフラ</span><p class="layer-what">毎日1億枚以上の写真を保存するストレージ / 世界中に画像を高速配信</p><p class="layer-how">写真は複数のデータセンターに冗長保存。CDNで世界中のユーザーに最寄りのサーバーから画像を配信。</p><p class="layer-tech">AWS S3 / CDN (CloudFront) / Kubernetes</p></div></div>
+<div class="scene-container" id="scene-2"><p class="card-title" style="margin-bottom:4px">Amazonで商品を購入する</p><p class="card-desc" style="margin-bottom:12px">「注文を確定する」を押してから確認メールが届くまでに起きていること</p><div class="layer layer-fe"><span class="badge badge-fe">フロントエンド</span><p class="layer-what">商品ページの表示 / カートに追加 / 購入ボタン / 注文完了画面</p><p class="layer-how">商品画像のスライダー、レビューの星表示、「カートに入れる」ボタンの動き、住所選択フォーム、注文確定後の「ありがとうございます」画面。</p><p class="layer-tech">React / TypeScript / HTML / CSS</p></div><div class="arrow-text">↓ 注文情報（商品・住所・決済）を送信 ↓</div><div class="layer layer-be"><span class="badge badge-be">バックエンド</span><p class="layer-what">在庫確認 → 決済処理 → 配送手配 → 確認メール送信</p><p class="layer-how">在庫DBを確認 → クレジットカード決済API呼び出し → 倉庫システムにピッキング指示を送信 → 配送業者のAPIに連携 → 注文確認メールを生成して送信。</p><p class="layer-tech">Java / Spring Boot / MySQL / 決済API</p></div><div class="arrow-text">↓ 数万件/秒の注文を処理するサーバー群 ↓</div><div class="layer layer-infra"><span class="badge badge-infra">インフラ</span><p class="layer-what">セール時にアクセスが100倍になっても落ちないサーバー管理</p><p class="layer-how">プライムデーなどの大量アクセス時にサーバーを自動増設（オートスケール）。決済情報を暗号化して安全に保管。万が一サーバーが壊れても別のサーバーが即座に引き継ぐ。</p><p class="layer-tech">AWS EC2 / RDS / CloudWatch / WAF</p></div></div>
+<div class="scene-container" id="scene-3"><p class="card-title" style="margin-bottom:4px">LINEでメッセージを送る</p><p class="card-desc" style="margin-bottom:12px">「送信」を押してから相手に届くまでに起きていること</p><div class="layer layer-fe"><span class="badge badge-fe">フロントエンド</span><p class="layer-what">チャット画面の表示 / 吹き出しの描画 / 既読表示 / スタンプ選択</p><p class="layer-how">メッセージ入力欄、送信ボタン、自分の吹き出し（右）と相手の吹き出し（左）の配置、「既読」ラベルの表示、スタンプの一覧表示とアニメーション再生。</p><p class="layer-tech">Swift (iOS) / Kotlin (Android) / JavaScript</p></div><div class="arrow-text">↓ メッセージデータを暗号化して送信 ↓</div><div class="layer layer-be"><span class="badge badge-be">バックエンド</span><p class="layer-what">メッセージ保存 / 相手のデバイスにプッシュ通知 / 既読管理</p><p class="layer-how">メッセージをDBに保存 → 相手のデバイストークンを取得 → プッシュ通知サーバー経由で通知送信 → 相手がトークを開いたら「既読」フラグを更新。</p><p class="layer-tech">Java / HBase / Redis / WebSocket</p></div><div class="arrow-text">↓ 2億人以上が同時に使うリアルタイム通信基盤 ↓</div><div class="layer layer-infra"><span class="badge badge-infra">インフラ</span><p class="layer-what">メッセージが数ミリ秒で届くリアルタイム通信の維持</p><p class="layer-how">WebSocket（常時接続）でリアルタイム配信。メッセージはEnd-to-End暗号化で第三者が読めない。複数のデータセンターに分散配置。</p><p class="layer-tech">専用データセンター / ロードバランサー / 暗号化基盤</p></div></div>
+<div class="scene-container" id="scene-4"><p class="card-title" style="margin-bottom:4px">YouTubeで動画を再生する</p><p class="card-desc" style="margin-bottom:12px">サムネイルをタップしてから動画が再生されるまでに起きていること</p><div class="layer layer-fe"><span class="badge badge-fe">フロントエンド</span><p class="layer-what">動画プレーヤーの表示 / 再生バー / 画質切替 / コメント欄</p><p class="layer-how">動画プレーヤーのUI（再生/一時停止、シークバー、音量、全画面ボタン）、回線速度に応じた画質の自動切替、コメント欄のスクロール、「いいね」ボタンの動き。</p><p class="layer-tech">JavaScript / Web API / HTML5 Video</p></div><div class="arrow-text">↓ 動画ストリームを取得 ↓</div><div class="layer layer-be"><span class="badge badge-be">バックエンド</span><p class="layer-what">動画を複数画質に変換 / おすすめ動画のAI計算 / 広告の挿入判定</p><p class="layer-how">アップロードされた動画を144p〜4Kまで複数画質にエンコード → 視聴履歴からAIがおすすめ動画を算出 → 広告枠の入札をリアルタイムで実行 → 再生回数をカウント。</p><p class="layer-tech">Python / C++ / TensorFlow / BigQuery</p></div><div class="arrow-text">↓ 毎秒数百万本の動画を配信するインフラ ↓</div><div class="layer layer-infra"><span class="badge badge-infra">インフラ</span><p class="layer-what">世界中の視聴者に最寄りサーバーから動画を低遅延で配信</p><p class="layer-how">動画はCDNで世界数百拠点にキャッシュ。東京の視聴者には東京のサーバーから配信するので高速。回線混雑時は自動で画質を下げて途切れないようにする。</p><p class="layer-tech">GCP / CDN / Borg / エッジサーバー</p></div></div>
+</div>
+
+<!-- PAGE 2: Full map -->
+<div class="page" id="page-2">
+<p class="page-title">ITエンジニア職種マップ（全体像）</p>
+<p class="page-sub">CAが扱う可能性のある主要職種を6カテゴリに整理</p>
+<div class="card" style="background:var(--blue-bg);border-color:var(--blue-border)"><p class="card-title" style="color:var(--blue)">Web開発系（開発エンジニア）</p><p class="card-desc" style="margin-bottom:10px">サービスの「中身」を作る人たち。求人数が最も多い</p><div class="grid"><div class="grid-item"><p class="grid-item-name">フロントエンドエンジニア</p><p class="grid-item-desc">画面・UIを実装</p><p class="grid-item-kw">React / Vue / HTML / CSS</p></div><div class="grid-item"><p class="grid-item-name">バックエンドエンジニア</p><p class="grid-item-desc">サーバー側の処理を実装</p><p class="grid-item-kw">Java / PHP / Ruby / Go / Python</p></div><div class="grid-item"><p class="grid-item-name">フルスタックエンジニア</p><p class="grid-item-desc">フロント＋バック両方</p><p class="grid-item-kw">React + Node.js 等のセット</p></div><div class="grid-item"><p class="grid-item-name">モバイルエンジニア</p><p class="grid-item-desc">スマホアプリを開発</p><p class="grid-item-kw">Swift / Kotlin / Flutter</p></div></div></div>
+<div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)"><p class="card-title" style="color:var(--amber)">インフラ・運用系</p><p class="card-desc" style="margin-bottom:10px">サービスが動く「土台」を作り、守る人たち</p><div class="grid"><div class="grid-item"><p class="grid-item-name">インフラエンジニア</p><p class="grid-item-desc">サーバー・NWの構築運用</p><p class="grid-item-kw">AWS / Azure / Linux / Terraform</p></div><div class="grid-item"><p class="grid-item-name">SRE</p><p class="grid-item-desc">信頼性を仕組みで担保</p><p class="grid-item-kw">監視 / 自動化 / SLI・SLO</p></div><div class="grid-item"><p class="grid-item-name">DevOpsエンジニア</p><p class="grid-item-desc">開発と運用の橋渡し</p><p class="grid-item-kw">CI/CD / Docker / Kubernetes</p></div><div class="grid-item"><p class="grid-item-name">セキュリティエンジニア</p><p class="grid-item-desc">サイバー攻撃から守る</p><p class="grid-item-kw">脆弱性診断 / WAF / SOC</p></div><div class="grid-item"><p class="grid-item-name">ネットワークエンジニア</p><p class="grid-item-desc">通信インフラ専門</p><p class="grid-item-kw">Cisco / ルーター / CCNA</p></div></div></div>
+<div class="card" style="background:var(--teal-bg);border-color:var(--teal-border)"><p class="card-title" style="color:var(--teal)">データ・AI系</p><p class="card-desc" style="margin-bottom:10px">データを分析・活用して価値を生む人たち</p><div class="grid"><div class="grid-item"><p class="grid-item-name">データエンジニア</p><p class="grid-item-desc">データ基盤を構築</p><p class="grid-item-kw">SQL / BigQuery / Spark</p></div><div class="grid-item"><p class="grid-item-name">データサイエンティスト</p><p class="grid-item-desc">データから知見を抽出</p><p class="grid-item-kw">Python / R / 統計 / 機械学習</p></div><div class="grid-item"><p class="grid-item-name">MLエンジニア</p><p class="grid-item-desc">AIモデルを開発・運用</p><p class="grid-item-kw">TensorFlow / PyTorch / MLOps</p></div></div></div>
+<div class="card" style="background:var(--red-bg);border-color:var(--red-border)"><p class="card-title" style="color:var(--red)">品質・テスト系</p><p class="card-desc" style="margin-bottom:10px">ソフトウェアの品質を保証する人たち</p><div class="grid"><div class="grid-item"><p class="grid-item-name">QAエンジニア</p><p class="grid-item-desc">テスト設計・品質管理</p><p class="grid-item-kw">テスト自動化 / Selenium</p></div><div class="grid-item"><p class="grid-item-name">SETエンジニア</p><p class="grid-item-desc">テスト基盤の開発</p><p class="grid-item-kw">E2Eテスト / テストFW</p></div></div></div>
+<div class="card"><p class="card-title">マネジメント・上流系</p><p class="card-desc" style="margin-bottom:10px">プロジェクト推進・要件整理を担う人たち</p><div class="grid"><div class="grid-item"><p class="grid-item-name">PM</p><p class="grid-item-desc">開発全体の進行管理</p><p class="grid-item-kw">スケジュール / 予算</p></div><div class="grid-item"><p class="grid-item-name">テックリード / EM</p><p class="grid-item-desc">技術方針＋チーム管理</p><p class="grid-item-kw">設計レビュー / 1on1 / 採用</p></div><div class="grid-item"><p class="grid-item-name">SE</p><p class="grid-item-desc">要件定義・設計が中心</p><p class="grid-item-kw">要件定義 / 基本設計 / SIer系</p></div></div></div>
+</div>
+
+<!-- PAGE 3: Career path (placeholder - we have the SVG) -->
+<div class="page" id="page-3">
+<p class="page-title">エンジニアのキャリアパス</p>
+<p class="page-sub">矢印 ＝ よくある転職・キャリアチェンジの方向</p>
+<div class="tip" style="margin-bottom:16px"><p class="tip-t">キャリアパスの3方向</p><p class="tip-b"><strong>スペシャリスト：</strong>技術を深く極める道（フロントエンド → React専門家）<br><strong>マネジメント：</strong>テックリード → EM → CTO / VPoE<br><strong>横展開：</strong>バックエンド → SRE、フロント → フルスタック 等</p></div>
+<div class="flow-box"><p class="flow-title">開発系の典型キャリア</p><div class="flow-steps"><div class="flow-step"><p class="flow-step-num">1年目</p><p class="flow-step-text">フロント or バック</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">3年目</p><p class="flow-step-text">フルスタック化</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">5年目</p><p class="flow-step-text">テックリード</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">7年目〜</p><p class="flow-step-text">EM / PM / CTO</p></div></div></div>
+<div class="flow-box"><p class="flow-title">インフラ系の典型キャリア</p><div class="flow-steps"><div class="flow-step"><p class="flow-step-num">1年目</p><p class="flow-step-text">インフラ / NW</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">3年目</p><p class="flow-step-text">クラウド専門</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">5年目</p><p class="flow-step-text">SRE / DevOps</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">7年目〜</p><p class="flow-step-text">セキュリティ / CTO</p></div></div></div>
+</div>
+
+<!-- PAGE 4: Language vs FW vs Tool -->
+<div class="page" id="page-4">
+<p class="page-title">「言語」と「技術」の違いを理解する</p>
+<p class="page-sub">求人票に出てくる技術用語は3種類に分けられる</p>
+<div class="card" style="background:var(--blue-bg);border-color:var(--blue-border)"><p class="card-title" style="color:var(--blue)">プログラミング言語</p><p style="font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px">料理で例えると → 「日本語」「英語」のような言葉そのもの</p><p class="card-desc" style="margin-bottom:10px">コンピュータに指示を書くための「言葉」。求人票では「必須スキル」の筆頭に来る。</p><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(100px,1fr))"><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">JavaScript</p><p class="grid-item-desc">Web全般</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">TypeScript</p><p class="grid-item-desc">JSの進化版</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Java</p><p class="grid-item-desc">大規模・業務系</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Python</p><p class="grid-item-desc">AI・Web</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Ruby</p><p class="grid-item-desc">スタートアップ</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">PHP</p><p class="grid-item-desc">Web系広く</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Go</p><p class="grid-item-desc">高速処理</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Swift</p><p class="grid-item-desc">iOSアプリ</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Kotlin</p><p class="grid-item-desc">Android</p></div></div></div>
+<div class="card" style="background:var(--green-bg);border-color:var(--green-border)"><p class="card-title" style="color:var(--green)">フレームワーク / ライブラリ</p><p style="font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px">料理で例えると → 「レシピ本」「料理キット」</p><p class="card-desc" style="margin-bottom:10px">言語の上に乗る「開発を効率化する仕組み」。フレームワークを見れば職種が特定しやすい。</p><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(110px,1fr))"><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">React</p><p class="grid-item-desc">JS → フロント</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Vue.js</p><p class="grid-item-desc">JS → フロント</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Rails</p><p class="grid-item-desc">Ruby → バック</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Laravel</p><p class="grid-item-desc">PHP → バック</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Spring Boot</p><p class="grid-item-desc">Java → バック</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Django</p><p class="grid-item-desc">Python → バック</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Flutter</p><p class="grid-item-desc">Dart → モバイル</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">PyTorch</p><p class="grid-item-desc">Python → AI</p></div></div></div>
+<div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)"><p class="card-title" style="color:var(--amber)">ツール / プラットフォーム</p><p style="font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px">料理で例えると → 「キッチン設備」「オーブン」「冷蔵庫」</p><p class="card-desc" style="margin-bottom:10px">開発・運用を支援するサービスや製品。インフラ系の求人に多い。</p><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(100px,1fr))"><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">AWS</p><p class="grid-item-desc">クラウド基盤</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Docker</p><p class="grid-item-desc">仮想環境</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">GitHub</p><p class="grid-item-desc">コード管理</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">MySQL</p><p class="grid-item-desc">データベース</p></div><div class="grid-item"><p class="grid-item-name" style="font-family:monospace;font-size:12px">Terraform</p><p class="grid-item-desc">インフラ管理</p></div></div></div>
+<div class="tip"><p class="tip-t">CA向け：3つの関係性（セットで覚える）</p><div class="rel-row"><span class="rel-tag rel-lang">JavaScript</span><span class="rel-arrow">→</span><span class="rel-tag rel-fw">React</span><span class="rel-arrow">→</span><span class="rel-tag rel-tool">GitHub</span><span class="rel-label">＝フロントエンドの典型セット</span></div><div class="rel-row"><span class="rel-tag rel-lang">Ruby</span><span class="rel-arrow">→</span><span class="rel-tag rel-fw">Rails</span><span class="rel-arrow">→</span><span class="rel-tag rel-tool">MySQL</span><span class="rel-label">＝バックエンドの典型セット</span></div><div class="rel-row"><span class="rel-tag rel-lang">Python</span><span class="rel-arrow">→</span><span class="rel-tag rel-fw">PyTorch</span><span class="rel-arrow">→</span><span class="rel-tag rel-tool">GPU</span><span class="rel-label">＝AI/MLエンジニア</span></div><div class="rel-row"><span class="rel-tag rel-lang">Shell</span><span class="rel-arrow">→</span><span class="rel-tag rel-fw">Ansible</span><span class="rel-arrow">→</span><span class="rel-tag rel-tool">AWS</span><span class="rel-label">＝インフラエンジニア</span></div></div>
+</div>
+
+<!-- PAGE 5: Tech stack patterns -->
+<div class="page" id="page-5">
+<p class="page-title">求人票でよく見る技術セット</p>
+<p class="page-sub">「この組み合わせ ＝ この職種」と覚えると早い</p>
+<div class="stk"><div class="stk-head"><p class="stk-name">モダンフロントエンド</p><span class="badge badge-fe">フロントエンド</span></div><div class="stk-flow"><span class="stk-tag">TypeScript</span><span class="stk-ar">+</span><span class="stk-tag">React</span><span class="stk-ar">+</span><span class="stk-tag">Next.js</span><span class="stk-ar">+</span><span class="stk-tag">Tailwind CSS</span></div><p class="stk-note">2025年のフロント求人で最も多い構成</p></div>
+<div class="stk"><div class="stk-head"><p class="stk-name">Railsバックエンド</p><span class="badge badge-be">バックエンド</span></div><div class="stk-flow"><span class="stk-tag">Ruby</span><span class="stk-ar">+</span><span class="stk-tag">Rails</span><span class="stk-ar">+</span><span class="stk-tag">PostgreSQL</span><span class="stk-ar">+</span><span class="stk-tag">Redis</span></div><p class="stk-note">スタートアップの定番。立ち上げフェーズの企業に多い</p></div>
+<div class="stk"><div class="stk-head"><p class="stk-name">Java企業系バックエンド</p><span class="badge badge-be">バックエンド</span></div><div class="stk-flow"><span class="stk-tag">Java</span><span class="stk-ar">+</span><span class="stk-tag">Spring Boot</span><span class="stk-ar">+</span><span class="stk-tag">MySQL</span><span class="stk-ar">+</span><span class="stk-tag">Oracle</span></div><p class="stk-note">大手企業・金融・SIer系で定番。安定した需要</p></div>
+<div class="stk"><div class="stk-head"><p class="stk-name">PHPバックエンド</p><span class="badge badge-be">バックエンド</span></div><div class="stk-flow"><span class="stk-tag">PHP</span><span class="stk-ar">+</span><span class="stk-tag">Laravel</span><span class="stk-ar">+</span><span class="stk-tag">MySQL</span><span class="stk-ar">+</span><span class="stk-tag">Nginx</span></div><p class="stk-note">Web制作〜中規模サービスまで幅広い</p></div>
+<div class="stk"><div class="stk-head"><p class="stk-name">フルスタック（JS統一型）</p><span class="badge badge-green">フルスタック</span></div><div class="stk-flow"><span class="stk-tag">TypeScript</span><span class="stk-ar">+</span><span class="stk-tag">React</span><span class="stk-ar">+</span><span class="stk-tag">Node.js</span><span class="stk-ar">+</span><span class="stk-tag">PostgreSQL</span></div><p class="stk-note">前後ともJS系で統一。少人数チームに多い</p></div>
+<div class="stk"><div class="stk-head"><p class="stk-name">クラウドインフラ</p><span class="badge badge-infra">インフラ</span></div><div class="stk-flow"><span class="stk-tag">AWS</span><span class="stk-ar">+</span><span class="stk-tag">Terraform</span><span class="stk-ar">+</span><span class="stk-tag">Docker</span><span class="stk-ar">+</span><span class="stk-tag">Kubernetes</span><span class="stk-ar">+</span><span class="stk-tag">Datadog</span></div><p class="stk-note">モダンなインフラ構成。SRE/DevOps求人でもこのセット</p></div>
+<div class="stk"><div class="stk-head"><p class="stk-name">AI / 機械学習</p><span class="badge badge-data">データ・AI</span></div><div class="stk-flow"><span class="stk-tag">Python</span><span class="stk-ar">+</span><span class="stk-tag">PyTorch</span><span class="stk-ar">+</span><span class="stk-tag">SageMaker</span><span class="stk-ar">+</span><span class="stk-tag">Docker</span></div><p class="stk-note">MLエンジニア・データサイエンティスト向け</p></div>
+<div class="tip"><p class="tip-t">CA向けポイント</p><p class="tip-b">求人票の「必須スキル」に書かれている技術が上記のどのパターンに近いかを見れば、職種と企業タイプがほぼ判別できます。</p></div>
+</div>
+
+<!-- PAGE 6: SES vs 受託 vs 自社 -->
+<div class="page" id="page-6">
+<p class="page-title">SES / 受託開発 / 自社開発の違い</p>
+<p class="page-sub">エンジニアの「働く場所と契約形態」の3分類</p>
+<div class="comp comp-ses"><p class="comp-title" style="color:var(--amber)">SES（システムエンジニアリングサービス）</p><p class="comp-analogy">例えると →「派遣シェフ」：他のレストランの厨房に入って働く</p><p class="comp-desc">自社の社員として雇用されるが、クライアント企業に常駐して開発する形態。</p><div class="comp-grid"><div class="comp-cell"><p class="comp-cell-label">勤務場所</p><p class="comp-cell-val">クライアント先に常駐</p></div><div class="comp-cell"><p class="comp-cell-label">未経験の入りやすさ</p><p class="comp-cell-val">★★★ 入りやすい</p></div><div class="comp-cell"><p class="comp-cell-label">年収傾向</p><p class="comp-cell-val">やや低め（マージンあり）</p></div><div class="comp-cell"><p class="comp-cell-label">見分け方</p><p class="comp-cell-val">「客先常駐」「PJ参画」</p></div></div></div>
+<div class="comp comp-jut"><p class="comp-title" style="color:var(--blue)">受託開発（SIer含む）</p><p class="comp-analogy">例えると →「ケータリング業者」：注文に応じて料理を作って納品する</p><p class="comp-desc">クライアントから開発案件を請け負い、自社内で開発して納品する形態。</p><div class="comp-grid"><div class="comp-cell"><p class="comp-cell-label">勤務場所</p><p class="comp-cell-val">自社 or チームで常駐</p></div><div class="comp-cell"><p class="comp-cell-label">未経験の入りやすさ</p><p class="comp-cell-val">★★☆ 中程度</p></div><div class="comp-cell"><p class="comp-cell-label">年収傾向</p><p class="comp-cell-val">中〜高（大手SIerは高い）</p></div><div class="comp-cell"><p class="comp-cell-label">見分け方</p><p class="comp-cell-val">「受託」「SI」「要件定義」</p></div></div></div>
+<div class="comp comp-jis"><p class="comp-title" style="color:var(--green)">自社開発（事業会社）</p><p class="comp-analogy">例えると →「自分のレストラン」：自分のメニューを自分で作って提供する</p><p class="comp-desc">自社プロダクトやサービスを開発・運用する形態。メルカリ、LINEなどが該当。</p><div class="comp-grid"><div class="comp-cell"><p class="comp-cell-label">勤務場所</p><p class="comp-cell-val">自社オフィス / リモート</p></div><div class="comp-cell"><p class="comp-cell-label">未経験の入りやすさ</p><p class="comp-cell-val">★☆☆ 難しい</p></div><div class="comp-cell"><p class="comp-cell-label">年収傾向</p><p class="comp-cell-val">高め（特にメガベンチャー）</p></div><div class="comp-cell"><p class="comp-cell-label">見分け方</p><p class="comp-cell-val">「自社サービス」「プロダクト開発」</p></div></div></div>
+<div class="tip"><p class="tip-t">CA向け：求職者への伝え方</p><p class="tip-b"><strong>キャリア初期：</strong>SESで多様な現場を経験 → 自分の適性を見つける<br><strong>キャリア中期：</strong>受託で上流工程に挑戦 or 自社開発でプロダクトに深く関わる<br><strong>よくある転職パターン：</strong>SES → 受託 → 自社開発（ステップアップ型）</p></div>
+</div>
+
+<!-- PAGE 7: 未経験市場 -->
+<div class="page" id="page-7">
+<p class="page-title">未経験からのエンジニア転職市場</p>
+<p class="page-sub">職種によって「入りやすさ」が大きく異なる</p>
+<div class="mk mk-easy"><p class="card-title" style="color:var(--green)">★★★ 未経験でも入りやすい</p><p class="card-desc" style="margin-bottom:8px">教育体制のある企業が多く、ポテンシャル採用が活発</p><div class="grid"><div class="grid-item"><p class="grid-item-name">インフラエンジニア</p><p class="grid-item-desc">最も入りやすい。資格（CCNA等）で有利に</p></div><div class="grid-item"><p class="grid-item-name">SE（SIer系）</p><p class="grid-item-desc">大手SIerの新卒・第二新卒枠</p></div><div class="grid-item"><p class="grid-item-name">テスト/QA</p><p class="grid-item-desc">テスト実行から入り開発へ</p></div></div></div>
+<div class="mk mk-mid"><p class="card-title" style="color:var(--amber)">★★☆ ポートフォリオがあれば可能</p><p class="card-desc" style="margin-bottom:8px">独学やスクールでの制作物が選考で重視される</p><div class="grid"><div class="grid-item"><p class="grid-item-name">フロントエンド</p><p class="grid-item-desc">個人サイトやアプリが鍵</p></div><div class="grid-item"><p class="grid-item-name">バックエンド</p><p class="grid-item-desc">CRUD操作のWebアプリ</p></div><div class="grid-item"><p class="grid-item-name">モバイル</p><p class="grid-item-desc">個人アプリをストアに公開</p></div></div></div>
+<div class="mk mk-hard"><p class="card-title" style="color:var(--red)">★☆☆ 未経験では難しい</p><p class="card-desc" style="margin-bottom:8px">高い専門知識が必要。まず隣接職種で経験を積んでから</p><div class="grid"><div class="grid-item"><p class="grid-item-name">SRE / DevOps</p><p class="grid-item-desc">インフラ＋開発の両方必要</p></div><div class="grid-item"><p class="grid-item-name">データサイエンティスト</p><p class="grid-item-desc">統計学・数学が前提</p></div><div class="grid-item"><p class="grid-item-name">セキュリティ</p><p class="grid-item-desc">NW・OSの深い知識必要</p></div></div></div>
+<div class="flow-box"><p class="flow-title">未経験者の典型的なステップアップ経路</p><div class="flow-steps"><div class="flow-step"><p class="flow-step-num">Step 1</p><p class="flow-step-text">SESで実務経験<br>（1〜2年）</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">Step 2</p><p class="flow-step-text">受託で上流経験<br>（2〜3年）</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">Step 3</p><p class="flow-step-text">自社開発へ転職<br>（3〜5年目〜）</p></div><span class="flow-ar">→</span><div class="flow-step"><p class="flow-step-num">Goal</p><p class="flow-step-text">リード / PM<br>年収600万〜</p></div></div></div>
+<div class="tip"><p class="tip-t">CA向け：未経験求職者への対応ポイント</p><p class="tip-b"><strong>年齢の壁：</strong>20代は積極採用。30代以上は動機と学習実績が重要<br><strong>スクール卒：</strong>スクール卒だけでは弱い。自主的なポートフォリオが鍵<br><strong>初年度年収：</strong>280〜350万が相場。前職より下がるケースが多い<br><strong>SESへの抵抗感：</strong>優良SES企業を提案し、キャリアの入口として位置づける</p></div>
+</div>
+
+<!-- PAGE 8: トークスクリプト -->
+<div class="page" id="page-8">
+<p class="page-title">求職者への説明トークスクリプト</p>
+<p class="page-sub">非エンジニアの求職者にそのまま使えるフレーズ集</p>
+<div class="talk"><p class="talk-q"><span class="talk-icon">質問</span>「フロントエンドって何ですか？」</p><p class="talk-a">スマホやPCで見ているWebサイトの「画面そのもの」を作る仕事です。ボタンの配置、色、押したときの動き、入力フォームの挙動など、ユーザーが直接触れる部分すべてを担当します。レストランで言えば、お店の内装やメニュー表、お客様への見せ方を作る人です。</p></div>
+<div class="talk"><p class="talk-q"><span class="talk-icon">質問</span>「バックエンドとの違いがわかりません」</p><p class="talk-a">ネットで買い物するときを想像してください。「購入ボタン」の見た目を作るのがフロントエンド、ボタンを押した後に在庫を確認して、決済して、注文メールを送る…この一連の裏側の処理を作るのがバックエンドです。お客さんから見えない厨房で料理を作るシェフのイメージですね。</p></div>
+<div class="talk"><p class="talk-q"><span class="talk-icon">質問</span>「インフラエンジニアってプログラミングしないんですか？」</p><p class="talk-a">一般的なプログラミング（アプリ開発）は少なめですが、サーバーの設定やクラウド環境の構築でコードを書くことはあります。最近は「インフラをコードで管理する」のが主流です。メインの仕事はサーバーやネットワークという「建物の基礎・電気・水道」を整えることです。</p></div>
+<div class="talk"><p class="talk-q"><span class="talk-icon">質問</span>「SESってブラックなんですか？」</p><p class="talk-a">SES自体が良い悪いではなく、会社によって大きく変わります。教育体制がしっかりしていて、エンジニアの希望に合った案件を紹介してくれる会社もあれば、そうでない会社もあります。未経験からエンジニアになるための「最初の実務経験を積む場所」として、優良なSES企業は良い選択肢です。</p><p class="talk-note">補足：「客先常駐」に不安を感じる方には「複数の環境で経験を積めるメリット」を伝える</p></div>
+<div class="talk"><p class="talk-q"><span class="talk-icon">質問</span>「ReactとかVueって何ですか？」</p><p class="talk-a">ReactやVueは「フレームワーク」と呼ばれるもので、JavaScriptという言語を使って効率よく画面を作るための「料理キット」のようなものです。求人票に書いてある場合は、その会社がそのキットを使っているということです。</p></div>
+<div class="talk"><p class="talk-q"><span class="talk-icon">質問</span>「未経験ですが、年収はどのくらいですか？」</p><p class="talk-a">未経験からの場合、初年度は280〜350万円が相場です。前職の年収より下がるケースもありますが、エンジニアは経験を積むと年収が上がりやすい職種です。3年で450〜550万、5年以上で600万円台も見えてきます。長期的な投資として考えていただくのが良いですね。</p><p class="talk-note">補足：前職年収が高い方には事前に年収ダウンの可能性を丁寧に伝える</p></div>
+</div>
+
+<!-- PAGE 9: FAQ -->
+<div class="page" id="page-9">
+<p class="page-title">よくある誤解・FAQ</p>
+<p class="page-sub">CAが求職者やチームメンバーから受けやすい誤解を正す</p>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>「開発エンジニア」と「バックエンドエンジニア」は同じ意味</p><p class="faq-right">「開発エンジニア」はフロント＋バックの総称。バックエンドはその一部。求人票で「開発エンジニア」と書いてある場合は、必須スキル欄で判断する。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>「React」「Vue」はプログラミング言語である</p><p class="faq-right">ReactやVueは「フレームワーク」。親となる言語はJavaScript。「React経験必須」＝JS/TSの経験も前提。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>インフラエンジニアはプログラミングをしない</p><p class="faq-right">「Infrastructure as Code」が主流で、TerraformやAnsibleでコードを書いてインフラを管理する。ただしアプリ開発とは性質が異なる。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>SESは全部ブラック企業</p><p class="faq-right">SESは契約形態の名称。教育体制・案件選択権・評価制度がしっかりした優良SESは多い。選定時は研修内容・配属先の決め方・還元率を確認する。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>フロントエンドは簡単でバックエンドは難しい</p><p class="faq-right">難易度は「方向性が違う」だけ。フロントはUX・ブラウザ互換性、バックは大規模データ処理・セキュリティが難しい。得意・興味で選ぶべき。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>AWSが求人票にあったらインフラエンジニア</p><p class="faq-right">AWSを「使う」のはバックエンドでもある。「構築」「設計」「運用」のような動詞がセットなら→インフラ。単に「AWS上で開発」なら→バックエンド。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>30代以上は未経験エンジニア転職は無理</p><p class="faq-right">難易度は上がるが不可能ではない。動機の説得力、前職スキルとの掛け算、ポートフォリオの実行力が見られる。</p></div>
+<div class="faq"><p class="faq-wrong"><span class="faq-x">誤解</span>プログラミングスクールを出れば即転職できる</p><p class="faq-right">スクール卒業はスタートライン。企業が見るのは「自主的に何を作ったか」「技術への好奇心があるか」。スクール課題以外の制作物が分かれ目。</p></div>
+</div>
+
+</main>
+
+<script>
+function showPage(idx){
+document.querySelectorAll('.page').forEach((el,i)=>{el.classList.toggle('active',i===idx)});
+document.querySelectorAll('.nav-item').forEach((el,i)=>{el.classList.toggle('active',i===idx)});
+if(window.innerWidth<=768)toggleSidebar();
+window.scrollTo(0,0);
+}
+function showScene(idx){
+document.querySelectorAll('.scene-container').forEach((el,i)=>{el.classList.toggle('active',i===idx)});
+document.querySelectorAll('.scene-tab').forEach((el,i)=>{el.classList.toggle('active',i===idx)});
+}
+function toggleSidebar(){
+document.querySelector('.sidebar').classList.toggle('open');
+document.querySelector('.overlay').classList.toggle('show');
+}
+// Keyboard navigation for presentation mode
+document.addEventListener('keydown', function(e) {
+  var pages = document.querySelectorAll('.page');
+  var current = -1;
+  pages.forEach(function(el, i) { if (el.classList.contains('active')) current = i; });
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (current < pages.length - 1) showPage(current + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (current > 0) showPage(current - 1);
+  }
+});
+</script>
+</body>
+</html>
