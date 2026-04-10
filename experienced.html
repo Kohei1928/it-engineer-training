@@ -938,8 +938,379 @@ details[open] summary{margin-bottom:8px}
 </div>
 
 </div>
-<div class="page" id="page-4"><p class="page-title">職務経歴書の読み方</p><p class="page-sub">Coming soon...</p></div>
-<div class="page" id="page-5"><p class="page-title">技術レベル見極め質問集</p><p class="page-sub">Coming soon...</p></div>
+<div class="page" id="page-4">
+<p class="page-title">職務経歴書の読み方 — SES経歴書を中心に</p>
+<p class="page-sub">Ch4の技術知識を使って、経歴書から候補者の工程レベルを判定する</p>
+
+<!-- 経歴書の構造ガイド -->
+<div class="flow-box">
+  <div class="flow-title">経歴書の構造ガイド</div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-text">プロジェクト概要</div></div>
+    <div class="flow-ar">→</div>
+    <div class="flow-step"><div class="flow-step-num">2</div><div class="flow-step-text">担当範囲</div></div>
+    <div class="flow-ar">→</div>
+    <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-text">使用技術</div></div>
+    <div class="flow-ar">→</div>
+    <div class="flow-step"><div class="flow-step-num">4</div><div class="flow-step-text">成果</div></div>
+  </div>
+</div>
+
+<!-- 注目すべき5つのポイント -->
+<p style="font-size:15px;font-weight:700;margin:18px 0 10px">注目すべき5つのポイント</p>
+
+<div class="card">
+  <div class="card-title">1. 使用技術欄 — 羅列か実務使用か</div>
+  <div style="margin-top:8px">
+    <div style="margin-bottom:6px"><span class="badge badge-green">良い例</span><br>
+      <span style="font-size:13px;font-family:monospace">React(3年) / TypeScript(2年) / Next.js(1年)</span><br>
+      <span class="card-desc">年数付きで信頼できる</span>
+    </div>
+    <div><span class="badge badge-red">悪い例</span><br>
+      <span style="font-size:13px;font-family:monospace">React, Vue, Angular, jQuery, Svelte</span><br>
+      <span class="card-desc">羅列すぎ。実務で使ったか必ず口頭確認</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">2. 規模感 — 数字で信頼度が変わる</div>
+  <div style="margin-top:8px">
+    <div style="margin-bottom:6px"><span class="badge badge-green">良い例</span><br>
+      <span style="font-size:13px;font-family:monospace">DAU 10万 / チーム8名 / テーブル200</span><br>
+      <span class="card-desc">具体的な数字あり</span>
+    </div>
+    <div><span class="badge badge-red">悪い例</span><br>
+      <span style="font-size:13px;font-family:monospace">大規模システムの開発</span><br>
+      <span class="card-desc">曖昧。何をもって大規模か不明</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">3. 担当フェーズ — <span class="term" data-def="工程レベル: 監視→構築→設計の3段階。担当フェーズで判定する">工程レベル</span>の判定に直結</div>
+  <div style="margin-top:8px">
+    <div style="margin-bottom:6px"><span class="badge badge-green">良い例</span><br>
+      <span style="font-size:13px">要件定義〜詳細設計〜実装〜テスト</span><br>
+      <span class="card-desc">上流から関与</span>
+    </div>
+    <div><span class="badge badge-red">悪い例</span><br>
+      <span style="font-size:13px">「実装・テスト」のみ</span><br>
+      <span class="card-desc">下流。設計経験なし</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">4. 能動的記述 — 受け身か主体的か</div>
+  <div style="margin-top:8px">
+    <div style="margin-bottom:6px"><span class="badge badge-green">良い例</span><br>
+      <span style="font-size:13px;font-family:monospace">Terraformを導入し、構築工数を50%削減</span><br>
+      <span class="card-desc">主体的 + 数字</span>
+    </div>
+    <div><span class="badge badge-red">悪い例</span><br>
+      <span style="font-size:13px">インフラ構築に携わった</span><br>
+      <span class="card-desc">受け身。何をしたか不明</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">5. GitHubリンク — あれば必ず確認</div>
+  <div style="margin-top:8px">
+    <div style="margin-bottom:6px"><span class="badge badge-green">ある場合</span><br>
+      <span class="card-desc">コミット頻度、コード品質、個人プロジェクトの有無をチェック</span>
+    </div>
+    <div><span class="badge badge-gray">ない場合</span><br>
+      <span class="card-desc">減点ではない。ただし「SES→自社開発」志望なら自主制作物の有無を口頭確認</span>
+    </div>
+  </div>
+</div>
+
+<!-- レッドフラグ -->
+<p style="font-size:15px;font-weight:700;margin:18px 0 10px">レッドフラグ — これが出たら深掘り必須</p>
+
+<div class="faq">
+  <div class="faq-wrong"><span class="faq-x">要注意</span>「多くの言語・FWを経験（PHP, Ruby, Python, Java, Go, React, Vue）」— 経験2年で7技術</div>
+  <div class="faq-right">広く浅い可能性が高い。「それぞれ実務でどのくらい使いましたか？」と確認。メインが1-2個に絞れるはず</div>
+</div>
+
+<div class="faq">
+  <div class="faq-wrong"><span class="faq-x">要注意</span>「PJ1: ○○監視（9ヶ月）→ PJ2: △△運用（7ヶ月）→ PJ3: □□保守（8ヶ月）」— 短期で案件が変わる</div>
+  <div class="faq-right"><span class="term" data-def="案件ガチャ: SESで自分では案件を選べず、会社都合で現場が決まってしまうこと">SES特有の「案件ガチャ」</span>の可能性。本人の意思で変わったのか、会社都合かを確認。3件連続で監視なら工程が上がっていない</div>
+</div>
+
+<div class="faq">
+  <div class="faq-wrong"><span class="faq-x">要注意</span>すべての案件で「〜に参加」「〜に携わった」のみの記述</div>
+  <div class="faq-right">主体性が見えない。「このPJであなたが一番貢献したことは何ですか？」と深掘り</div>
+</div>
+
+<!-- SES経歴書の特別セクション -->
+<div class="card" style="margin-top:18px">
+  <div class="card-title">SES出身者の経歴書 — ここを見る</div>
+  <p style="font-size:13px;font-weight:600;margin:10px 0 6px">案件の質の見極め</p>
+  <div style="font-size:12px;color:var(--text2);line-height:2">
+    <div>「○○システムの<strong>運用監視</strong>」→ 下流。手順書ベース</div>
+    <div>「○○基盤の<strong>構築</strong>」→ 中流。設計書に基づく作業</div>
+    <div>「○○システムの<strong>基盤設計</strong>」→ 上流。要件から設計</div>
+  </div>
+  <p style="font-size:12px;color:var(--text2);margin:8px 0">「常駐先名非公開」→ SESでは一般的。気にしない。重要なのは工程と技術</p>
+  <div class="tip">
+    <div class="tip-t">工程レベル判定チェックリスト</div>
+    <div class="tip-b">
+      1. 設計書を自分で書いた経験がある → <strong>設計レベル</strong><br>
+      2. 構築を一人で完遂した経験がある → <strong>構築レベル</strong>以上<br>
+      3. 手順書にない対応を自分で判断した → 構築レベルの素養あり<br>
+      4. 担当は全て手順書通りの作業 → <strong>監視レベル</strong><br>
+      5. 資格はLPIC/CCNAのみ、AWS資格なし → 構築への準備段階
+    </div>
+  </div>
+</div>
+
+<!-- サンプル経歴書 -->
+<p style="font-size:15px;font-weight:700;margin:18px 0 10px">サンプル経歴書2例</p>
+
+<!-- 良い例 -->
+<p style="font-size:13px;font-weight:600;margin-bottom:8px"><span class="badge badge-green">良い例</span> 成長が見える経歴書</p>
+<div style="background:var(--bg2);border:2px solid var(--bg3);border-radius:var(--radius);padding:20px;font-size:12px;max-width:650px;margin-bottom:16px;font-family:monospace;line-height:2">
+  <div style="font-size:14px;font-weight:700;font-family:sans-serif;margin-bottom:12px;border-bottom:1px solid var(--bg3);padding-bottom:6px">職務経歴書 — 渡辺 健太（29歳）</div>
+  <div style="margin-bottom:12px">
+    <div style="font-weight:600">【PJ1】大手保険会社 サーバー監視運用（2022.4〜2023.3）</div>
+    <div style="color:var(--text2)">　担当: 24/365監視オペレーション、障害一次対応、月次レポート作成</div>
+    <div style="color:var(--text2)">　技術: Linux / Zabbix / JP1 / Shell Script</div>
+    <div>　実績: 障害対応手順書を5件作成。対応時間を平均20分短縮 <span class="badge badge-green">★能動的</span></div>
+  </div>
+  <div style="margin-bottom:12px">
+    <div style="font-weight:600">【PJ2】通信会社 NW基盤構築（2023.4〜2024.6）</div>
+    <div style="color:var(--text2)">　担当: 設計書に基づくNW機器設定、構築テスト、ドキュメント整備</div>
+    <div style="color:var(--text2)">　技術: Cisco / VLAN / Firewall / Terraform</div>
+    <div>　実績: 50拠点のNW構築を担当。手順をTerraformで自動化 <span class="badge badge-green">★監視→構築UP</span> <span class="badge badge-green">★IaC実績</span></div>
+  </div>
+  <div style="margin-bottom:12px">
+    <div style="font-weight:600">【PJ3】EC企業 クラウド基盤設計・構築（2024.7〜現在）</div>
+    <div style="color:var(--text2)">　担当: AWS基盤の設計〜構築。設計書作成も一部担当</div>
+    <div style="color:var(--text2)">　技術: AWS(EC2/RDS/S3/CloudFront) / Terraform / Docker</div>
+    <div style="color:var(--text2)">　チーム: 4名（うちインフラ2名）</div>
+    <div>　実績: オンプレ→AWS移行を主導。コスト30%削減 <span class="badge badge-green">★設計関与</span> <span class="badge badge-green">★数字あり</span></div>
+  </div>
+  <div>資格: LPIC Level1 / AWS SAA / CCNA</div>
+</div>
+
+<!-- 注意が必要な例 -->
+<p style="font-size:13px;font-weight:600;margin-bottom:8px"><span class="badge badge-red">注意</span> 下流停滞が見える経歴書</p>
+<div style="background:var(--bg2);border:2px solid var(--bg3);border-radius:var(--radius);padding:20px;font-size:12px;max-width:650px;margin-bottom:16px;font-family:monospace;line-height:2">
+  <div style="font-size:14px;font-weight:700;font-family:sans-serif;margin-bottom:12px;border-bottom:1px solid var(--bg3);padding-bottom:6px">職務経歴書 — ○○ ○○（27歳）</div>
+  <div style="margin-bottom:12px">
+    <div style="font-weight:600">【PJ1】金融系 サーバー運用監視（2022.4〜2023.1）<span class="badge badge-red" style="margin-left:6px">← 9ヶ月</span></div>
+    <div style="color:var(--text2)">　担当: 監視オペレーション、アラート対応</div>
+    <div style="color:var(--text2)">　技術: Linux / Zabbix</div>
+    <div><span class="badge badge-red">★実績なし</span></div>
+  </div>
+  <div style="margin-bottom:12px">
+    <div style="font-weight:600">【PJ2】官公庁系 システム運用（2023.2〜2023.9）<span class="badge badge-red" style="margin-left:6px">← 7ヶ月 ★また監視</span></div>
+    <div style="color:var(--text2)">　担当: システム監視、障害一次対応、ヘルプデスク <span class="badge badge-red">★ヘルプデスク混在</span></div>
+    <div style="color:var(--text2)">　技術: Windows Server / JP1</div>
+  </div>
+  <div style="margin-bottom:12px">
+    <div style="font-weight:600">【PJ3】製造業 インフラ運用保守（2023.10〜現在）<span class="badge badge-red" style="margin-left:6px">← ★3件連続監視</span></div>
+    <div style="color:var(--text2)">　担当: サーバー・NW運用保守に携わる <span class="badge badge-red">★「携わる」受け身</span></div>
+    <div style="color:var(--text2)">　技術: Linux / Windows Server / VMware</div>
+  </div>
+  <div>資格: LPIC Level1 <span class="badge badge-red" style="margin-left:6px">★2年半で1つのみ</span></div>
+</div>
+
+</div>
+<div class="page" id="page-5">
+<p class="page-title">技術レベルの見極め質問集</p>
+<p class="page-sub">技術を知らなくても「この人は上流に行ける人か？」を判別できる</p>
+
+<!-- Tabs -->
+<div class="q-tabs" style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+  <button class="q-tab active" onclick="showQ(0)">共通質問6問</button>
+  <button class="q-tab" onclick="showQ(1)">SES追加質問</button>
+  <button class="q-tab" onclick="showQ(2)">フレーズ集</button>
+  <button class="q-tab" onclick="showQ(3)">上流判定フロー</button>
+</div>
+
+<!-- Tab 0: 共通質問 -->
+<div class="q-container active">
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q1</span>「直近のプロジェクトで一番難しかった技術的な課題は？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-gray">レベル1-2</span> 「特にないです」「言われたことをやっていたので…」→ 下流/受け身。深掘り必要</div>
+      <div style="margin-bottom:6px"><span class="badge badge-infra">レベル3</span> 「SQLのパフォーマンスが遅くて、<span class="term" data-def="インデックス: DBの検索速度を上げる仕組み。適切に設定しないと全件スキャンが走り遅くなる">インデックス</span>を見直しました」→ 課題特定+対処の経験あり。中堅下位</div>
+      <div><span class="badge badge-fe">レベル4-5</span> 「<span class="term" data-def="マイクロサービス: 機能ごとに独立したサービスに分割するアーキテクチャ。連携・整合性の管理が難しい">マイクロサービス</span>間のデータ整合性が課題で、イベント駆動に設計変更しました」→ アーキテクチャレベルの判断。中堅上位〜シニア</div>
+    </div>
+    <div class="talk-note">この質問で「技術的な課題が何もなかった」という回答は要注意。チャレンジのない案件に長くいた可能性</div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q2</span>「コードや設計を誰かにレビューしてもらいましたか？逆にレビューする立場もありましたか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-gray">レベル1-2</span> 「レビューの文化がなかった」→ チーム開発が未成熟な環境</div>
+      <div style="margin-bottom:6px"><span class="badge badge-infra">レベル3</span> 「レビューは受けていた。最近は後輩のも見るようになった」→ 成長過程</div>
+      <div><span class="badge badge-fe">レベル4-5</span> 「レビューは双方向。設計レビューも主催していた」→ チームの品質に貢献</div>
+    </div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q3</span>「本番でトラブルが起きたとき、あなたはどう動きましたか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-gray">レベル1-2</span> 「手順書に沿って対応した」→ 定型対応。監視レベル</div>
+      <div style="margin-bottom:6px"><span class="badge badge-infra">レベル3</span> 「ログを調査して原因を特定し、修正パッチを当てた」→ 自走で問題解決</div>
+      <div><span class="badge badge-fe">レベル4-5</span> 「障害の根本原因を分析し、再発防止のアーキテクチャ改善を提案した」→ 設計レベル</div>
+    </div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q4</span>「今の技術スタックやツール、自分で選びましたか？選べる立場でしたか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-gray">レベル1-2</span> 「会社/クライアントが決めたものを使っていた」→ SESでは一般的。気にしすぎない</div>
+      <div style="margin-bottom:6px"><span class="badge badge-infra">レベル3</span> 「ライブラリの選定は自分で提案した」→ 部分的な関与</div>
+      <div><span class="badge badge-fe">レベル4-5</span> 「技術スタック全体の選定に関与した」→ 設計/<span class="term" data-def="テックリード: チームの技術方針・選定を主導するエンジニア。マネージャーではなく技術で引っ張る役割">テックリード</span>レベル</div>
+    </div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q5</span>「次は何を学ぼうとしていますか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-green">良い回答</span> 具体的（「AWS SAAを来月受ける」「Terraformのハンズオンをやっている」）→ 自走力あり</div>
+      <div style="margin-bottom:6px"><span class="badge badge-red">注意</span> 「特にないです」→ 成長意欲の確認が必要</div>
+      <div><span class="badge badge-red">注意</span> 「AIとか…」→ 漠然としすぎ。方向性が定まっていない</div>
+    </div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q6</span>「GitHubやQiitaなど、外部発信はしていますか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-green">ある場合</span> 自走力・アウトプット習慣の証明。内容も確認</div>
+      <div><span class="badge badge-gray">ない場合</span> 減点ではない。「業務以外で技術に触れる時間はありますか？」に切り替え</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Tab 1: SES追加質問 -->
+<div class="q-container">
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q7</span>「今の案件はどうやって決まりましたか？自分で選べましたか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-red">「会社が決めた」</span> 案件選択権なし。SES企業の質を判定する材料</div>
+      <div style="margin-bottom:6px"><span class="badge badge-green">「3つの候補から選んだ」</span> 優良SES。案件選択権あり</div>
+    </div>
+    <div class="talk-note">案件を選べない環境なら、転職でまず「案件を選べる環境」に移ることが最優先</div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q8</span>「手順書にないことを自分で考えてやった経験はありますか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-green">ある場合</span> 主体性の証明。具体的に何をしたかを深掘り</div>
+      <div><span class="badge badge-gray">ない場合</span> 必ずしもNG。「やりたかったができなかった」なら環境の問題。「必要性を感じなかった」なら成長意欲の確認</div>
+    </div>
+  </div>
+
+  <div class="talk">
+    <div class="talk-q"><span class="talk-icon">Q9</span>「今の案件の設計書、自分で読んで理解できますか？」</div>
+    <div class="talk-a">
+      <div style="margin-bottom:6px"><span class="badge badge-green">「理解できる」</span> 構築以上の素養あり。設計書を読んで質問できるか追加確認</div>
+      <div style="margin-bottom:6px"><span class="badge badge-red">「見たことがない」</span> 監視レベル。まず設計書に触れる環境が必要</div>
+    </div>
+    <div class="talk-note">設計書を読めるかどうかが、構築案件に移れるかの分水嶺</div>
+  </div>
+
+</div>
+
+<!-- Tab 2: フレーズ集 -->
+<div class="q-container">
+
+  <div class="card">
+    <div class="card-title" style="font-size:13px">「技術的な詳細は企業のエンジニアが確認しますが、○○さんご自身の感覚として、今の技術力は10段階でどのあたりだと思いますか？」</div>
+    <div class="tip" style="margin-top:8px"><div class="tip-b">→ 自己評価を聞くことで、技術を知らなくてもレベル感がわかる</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="font-size:13px">「その技術を『入門・実務で使える・設計できる・人に教えられる』の4段階で言うと？」</div>
+    <div class="tip" style="margin-top:8px"><div class="tip-b">→ 1-5の数字より、この表現の方が候補者が答えやすい</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="font-size:13px">「前のプロジェクトと今のプロジェクト、技術的に一番変わったことは何ですか？」</div>
+    <div class="tip" style="margin-top:8px"><div class="tip-b">→ 成長実感を聞くことで、工程の上昇度合いがわかる</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="font-size:13px">「正直なところ、今の現場で技術的に物足りないと感じることはありますか？」</div>
+    <div class="tip" style="margin-top:8px"><div class="tip-b">→ 転職動機の本音を引き出す。不満の具体性で成長意欲が見える</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="font-size:13px">「もし今から技術を1つだけ学び直せるとしたら、何を選びますか？」</div>
+    <div class="tip" style="margin-top:8px"><div class="tip-b">→ キャリアの方向性と自己認識を同時に確認できる</div></div>
+  </div>
+
+</div>
+
+<!-- Tab 3: 上流判定フロー -->
+<div class="q-container">
+
+  <div class="flow-box">
+    <div class="flow-title">上流エンジニア判定フロー</div>
+    <div class="flow-note" style="margin-bottom:14px">「要件から設計書を書いた経験がありますか？」という質問から始めて、段階的に工程レベルを確定する</div>
+
+    <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:6px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">質問1: 「要件から設計書を書いた経験がありますか？」</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius-sm);padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:4px">→ Yes</div>
+          <div style="font-size:13px;font-weight:700;color:var(--green)">【設計レベル】</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">設計案件・SRE・テックリード求人が狙える</div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:4px">→ No ↓ 次の質問へ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-text">↓</div>
+
+    <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:6px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">質問2: 「構築作業を一人で完遂した経験がありますか？」</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius-sm);padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:4px">→ Yes</div>
+          <div style="font-size:13px;font-weight:700;color:var(--amber)">【構築レベル】</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">設計案件への挑戦 or 自社開発のインフラチーム</div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);margin-bottom:4px">→ No ↓ 次の質問へ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-text">↓</div>
+
+    <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:12px 16px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">質問3: 「設計書を読んで理解できますか？」</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius-sm);padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:4px">→ Yes</div>
+          <div style="font-size:13px;font-weight:700;color:var(--blue)">【構築準備レベル】</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">構築案件への異動・転職が現実的</div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--coral-bg);border:1px solid var(--coral-border);border-radius:var(--radius-sm);padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--coral);margin-bottom:4px">→ No</div>
+          <div style="font-size:13px;font-weight:700;color:var(--coral)">【監視レベル】</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">まず資格取得（CCNA/AWS CLF）と構築の手伝いから</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
 <div class="page" id="page-6"><p class="page-title">転職パターン5選</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-7"><p class="page-title">ロールプレイ練習</p><p class="page-sub">Coming soon...</p></div>
 </main>
