@@ -614,8 +614,330 @@ details[open] summary{margin-bottom:8px}
 
 </div>
 </div>
-<div class="page" id="page-2"><p class="page-title">年収マップ</p><p class="page-sub">Coming soon...</p></div>
-<div class="page" id="page-3"><p class="page-title">候補者パターン早見表</p><p class="page-sub">Coming soon...</p></div>
+<div class="page" id="page-2">
+<p class="page-title">年収マップ — 何を変えると年収が上がるか</p>
+<p class="page-sub">候補者の現在地と、年収を上げるレバーを可視化する</p>
+
+<div class="sim">
+  <p class="card-title">年収シミュレーター</p>
+  <p class="card-desc" style="margin-bottom:12px">現在の状況を選ぶと、想定年収と次のステップが表示されます</p>
+  <div class="sim-inputs">
+    <select class="sim-select" id="sim-type">
+      <option value="">職種を選択</option>
+      <option value="infra">インフラ</option>
+      <option value="fe">フロントエンド</option>
+      <option value="be">バックエンド</option>
+      <option value="mobile">モバイル</option>
+      <option value="data">データエンジニア</option>
+      <option value="ml">ML/AIエンジニア</option>
+    </select>
+    <select class="sim-select" id="sim-phase">
+      <option value="">工程を選択</option>
+      <option value="monitor">監視・運用 / テスト・保守</option>
+      <option value="build">構築 / 実装</option>
+      <option value="design">設計</option>
+      <option value="lead">PM・テックリード</option>
+    </select>
+    <select class="sim-select" id="sim-year">
+      <option value="">経験年数</option>
+      <option value="1">1-2年</option>
+      <option value="3">3-5年</option>
+      <option value="5">5-8年</option>
+    </select>
+    <select class="sim-select" id="sim-company">
+      <option value="">企業タイプ</option>
+      <option value="ses"><span class="term" data-def="システムエンジニアリングサービス。常駐型の働き方">SES</span></option>
+      <option value="jutaku">受託開発</option>
+      <option value="jisha">自社開発</option>
+      <option value="mega">メガベンチャー</option>
+    </select>
+    <button class="sim-btn" onclick="simulate()">診断する</button>
+  </div>
+  <div class="sim-result" id="sim-result"></div>
+</div>
+
+<p style="font-size:14px;font-weight:700;margin:24px 0 10px">年収を上げる4つのレバー</p>
+
+<div class="card" style="background:var(--green-bg);border-color:var(--green-border)">
+  <p class="card-title">レバー1: 工程を上げる</p>
+  <p class="card-desc">監視→構築で <strong>+80〜130万</strong>、構築→設計で <strong>+100〜150万</strong>。4つのレバーの中で最もインパクトが大きい。同じ職種・同じ企業でも、担当工程が上がるだけで年収帯が丸ごと変わる。</p>
+</div>
+
+<div class="card" style="background:var(--blue-bg);border-color:var(--blue-border)">
+  <p class="card-title">レバー2: 企業タイプを変える</p>
+  <p class="card-desc"><span class="term" data-def="システムエンジニアリングサービス。常駐型で月額単価からマージンが引かれる構造">SES</span>→自社開発で <strong>+15%</strong>。マージン構造の差が年収に直結。SESは月額単価の30〜50%がSES企業の取り分。自社開発はその分がエンジニアに還元される。</p>
+</div>
+
+<div class="card" style="background:var(--purple-bg);border-color:var(--purple-border)">
+  <p class="card-title">レバー3: 技術をモダン化する</p>
+  <p class="card-desc">レガシー→モダンで <strong>+50〜100万</strong>。<span class="term" data-def="JavaScriptに型付けを追加した言語。大規模開発で標準化">TypeScript</span>、<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>、<span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>などモダン技術を習得すると市場価値が上がる。特にクラウド移行需要が急増中のインフラ系は効果大。</p>
+</div>
+
+<div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)">
+  <p class="card-title">レバー4: 資格を取る</p>
+  <p class="card-desc"><span class="term" data-def="AWS Solutions Architect Associate。AWSの設計スキルを証明する資格">AWS SAA</span>で <strong>+30〜50万</strong>、<span class="term" data-def="Cisco Certified Network Associate。ネットワークエンジニアの登竜門資格">CCNA</span>で <strong>+20〜30万</strong>。特にインフラ系は資格が年収に直結する。スキルの証明手段として採用担当者に伝わりやすい。</p>
+</div>
+
+<p style="font-size:14px;font-weight:700;margin:24px 0 10px">年収期待値調整トーク3例</p>
+
+<div class="talk">
+  <p class="talk-q"><span class="talk-icon">質問</span>年収が希望より低い場合</p>
+  <p class="talk-a">「率直にお伝えすると、○○さんの現在の工程と経験年数では、市場相場は○○万〜○○万です。ただ、ここからの伸びしろは大きいです。構築→設計に上がることで+100〜150万は現実的です。」</p>
+  <p class="talk-note">まず現実の相場を正直に伝える。その上で伸びしろを提示して前向きな話に変換する。</p>
+</div>
+
+<div class="talk">
+  <p class="talk-q"><span class="talk-icon">質問</span><span class="term" data-def="システムエンジニアリングサービス。常駐型の働き方">SES</span>→自社開発で年収が下がる可能性がある場合</p>
+  <p class="talk-a">「正直にお伝えすると、最初の年収は横ばいか微減の可能性があります。ただ、自社開発では昇給ペースがSESより速い傾向があります。3年後の年収で考えると、今転職した方が有利です。」</p>
+  <p class="talk-note">短期の数字だけで比較させない。3年後の年収軸に話を持っていく。</p>
+</div>
+
+<div class="talk">
+  <p class="talk-q"><span class="talk-icon">質問</span>工程を上げれば年収も上がると伝える場合</p>
+  <p class="talk-a">「今の監視の経験は基礎として重要です。ここに<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>資格を加えると構築案件に移れます。年収で言うと、監視の300〜400万から構築の400〜530万のレンジに入ります。」</p>
+  <p class="talk-note">具体的な金額レンジで示すことで候補者が行動イメージを持てる。</p>
+</div>
+
+</div>
+<div class="page" id="page-3">
+<p class="page-title">候補者パターン早見表 — この人にはこの選択肢</p>
+<p class="page-sub">面談中に「この人はパターンCだ」と瞬時に判断できる早見表</p>
+
+<!-- Pattern A -->
+<div class="comp" style="background:var(--blue-bg);border:1px solid var(--blue-border)">
+  <p class="comp-title">パターンA: <span class="term" data-def="サーバーサイドのWeb開発言語。CMSや業務システムに広く使われる">PHP</span>/<span class="term" data-def="PHPの代表的なWebフレームワーク。日本の受託開発で最も普及">Laravel</span>経験者</p>
+  <p class="comp-analogy">PHP/Laravel × SES 2-3年（ペルソナ: 山田・佐藤タイプ）</p>
+  <div class="comp-grid">
+    <div class="comp-cell">
+      <p class="comp-cell-label">スキルが活かせる方向</p>
+      <p class="comp-cell-val" style="font-size:12px;line-height:1.8">
+        ・<span class="term" data-def="汎用性が高くAI/ML需要で急成長中の言語">Python</span>転向（AI需要で年収UP。MVC/ORM共通で学習コスト低）<br>
+        ・Laravel深掘り（設計経験を積んで自社開発へ。年収+50〜100万）<br>
+        ・<span class="term" data-def="Googleが開発したシンプルで高速な言語。マイクロサービスに強い">Go</span>転向（PHP後継として需要増。ただし6ヶ月の学習期間）
+      </p>
+    </div>
+    <div class="comp-cell">
+      <p class="comp-cell-label">次に学ぶべき</p>
+      <p class="comp-cell-val"><span class="term" data-def="アプリの実行環境をコンテナ化するツール">Docker</span> + <span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>基礎</p>
+      <p class="comp-cell-label" style="margin-top:8px">年収の伸び</p>
+      <p class="comp-cell-val">400万 → <strong>550万</strong>（2-3年後）</p>
+    </div>
+  </div>
+</div>
+
+<!-- Pattern B -->
+<div class="comp" style="background:var(--purple-bg);border:1px solid var(--purple-border)">
+  <p class="comp-title">パターンB: <span class="term" data-def="エンタープライズ向けの静的型付け言語。大規模開発で30年以上の実績">Java</span>/<span class="term" data-def="JavaのWebフレームワーク。大手SIer・金融系で定番">Spring</span>経験者</p>
+  <p class="comp-analogy">Java/Spring × SIer/SES 3-5年（ペルソナ: 鈴木・伊藤タイプ）</p>
+  <div class="comp-grid">
+    <div class="comp-cell">
+      <p class="comp-cell-label">スキルが活かせる方向</p>
+      <p class="comp-cell-val" style="font-size:12px;line-height:1.8">
+        ・<span class="term" data-def="JavaをベースにJetBrainsが開発した言語。Android開発の公式言語">Kotlin</span>（同系統。Android/バックエンド共に需要大）<br>
+        ・Web系自社開発（上流経験が武器。Java→モダンJavaで十分戦える）<br>
+        ・注意: <span class="term" data-def="Googleが開発したシンプルで高速な言語。マイクロサービスに強い">Go</span>移行は思想の違いで6ヶ月〜1年。安易に勧めない
+      </p>
+    </div>
+    <div class="comp-cell">
+      <p class="comp-cell-label">次に学ぶべき</p>
+      <p class="comp-cell-val">Spring Boot最新 + <span class="term" data-def="JavaScriptに型付けを追加した言語。大規模開発で標準化">TypeScript</span></p>
+      <p class="comp-cell-label" style="margin-top:8px">年収の伸び</p>
+      <p class="comp-cell-val">480万 → <strong>620万</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Pattern C -->
+<div class="comp" style="background:var(--coral-bg);border:1px solid var(--coral-border)">
+  <p class="comp-title">パターンC: インフラ監視<span class="term" data-def="システムエンジニアリングサービス。常駐型の働き方">SES</span> <span class="badge badge-red">★最多</span></p>
+  <p class="comp-analogy">インフラ監視 × SES 1-2年（ペルソナ: 田中タイプ）</p>
+  <div class="comp-grid">
+    <div class="comp-cell">
+      <p class="comp-cell-label">スキルが活かせる方向</p>
+      <p class="comp-cell-val" style="font-size:12px;line-height:1.8">
+        ・<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>資格取得 → 構築案件（最短・最確実ルート）<br>
+        ・<span class="term" data-def="Cisco Certified Network Associate。ネットワークエンジニアの登竜門資格">CCNA</span> + <span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span> → NW/サーバー構築（資格が名刺代わり）<br>
+        ・クラウド移行案件（オンプレ→AWS。需要急増中）
+      </p>
+    </div>
+    <div class="comp-cell">
+      <p class="comp-cell-label">次に学ぶべき</p>
+      <p class="comp-cell-val">AWS CLF → <span class="term" data-def="AWS Solutions Architect Associate。AWSの設計スキルを証明する資格">AWS SAA</span>（鉄板順序）</p>
+      <p class="comp-cell-label" style="margin-top:8px">年収の伸び</p>
+      <p class="comp-cell-val">350万 → <strong>480万</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Pattern D -->
+<div class="comp" style="background:var(--green-bg);border:1px solid var(--green-border)">
+  <p class="comp-title">パターンD: インフラ構築経験者</p>
+  <p class="comp-analogy">インフラ構築 × SES 3年（ペルソナ: 渡辺タイプ）</p>
+  <div class="comp-grid">
+    <div class="comp-cell">
+      <p class="comp-cell-label">スキルが活かせる方向</p>
+      <p class="comp-cell-val" style="font-size:12px;line-height:1.8">
+        ・設計案件（<span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>/IaC経験があれば即戦力）<br>
+        ・<span class="term" data-def="Site Reliability Engineering。サービスの信頼性を技術で担保する職種">SRE</span>/DevOps（構築+コード経験があれば高年収帯へ）<br>
+        ・自社開発のインフラチーム
+      </p>
+    </div>
+    <div class="comp-cell">
+      <p class="comp-cell-label">次に学ぶべき</p>
+      <p class="comp-cell-val"><span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span> + <span class="term" data-def="コンテナオーケストレーションツール。大規模なコンテナ管理を自動化">Kubernetes</span></p>
+      <p class="comp-cell-label" style="margin-top:8px">年収の伸び</p>
+      <p class="comp-cell-val">480万 → <strong>650万</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Pattern E -->
+<div class="comp" style="background:var(--teal-bg);border:1px solid var(--teal-border)">
+  <p class="comp-title">パターンE: <span class="term" data-def="Facebookが開発したUIライブラリ。SPA開発で世界標準">React</span>/<span class="term" data-def="JavaScriptに型付けを追加した言語。大規模開発で標準化">TypeScript</span>経験者</p>
+  <p class="comp-analogy">React/TS × SES/受託 2-3年</p>
+  <div class="comp-grid">
+    <div class="comp-cell">
+      <p class="comp-cell-label">スキルが活かせる方向</p>
+      <p class="comp-cell-val" style="font-size:12px;line-height:1.8">
+        ・<span class="term" data-def="ReactベースのフルスタックWebフレームワーク。App RouterでSSR/SSG対応">Next.js</span>深掘り（フロントエンド市場で最も需要高い）<br>
+        ・フルスタック化（React + Node.jsでバック側も）<br>
+        ・自社開発SaaS企業
+      </p>
+    </div>
+    <div class="comp-cell">
+      <p class="comp-cell-label">次に学ぶべき</p>
+      <p class="comp-cell-val">Next.js App Router + テスト（Jest/Playwright）</p>
+      <p class="comp-cell-label" style="margin-top:8px">年収の伸び</p>
+      <p class="comp-cell-val">450万 → <strong>600万</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Pattern F -->
+<div class="comp" style="background:var(--gray-bg);border:1px solid var(--gray-border)">
+  <p class="comp-title">パターンF: レガシー技術経験者</p>
+  <p class="comp-analogy">COBOL/VB.NET × レガシー環境 5年+</p>
+  <div class="comp-grid">
+    <div class="comp-cell">
+      <p class="comp-cell-label">スキルが活かせる方向</p>
+      <p class="comp-cell-val" style="font-size:12px;line-height:1.8">
+        ・<span class="term" data-def="金融・官公庁系の古い業務システムで使われる言語。移行需要がある">COBOL</span>→Java移行PJ（金融系で需要。30代前半まで推奨）<br>
+        ・<span class="term" data-def="MicrosoftのVisual Basicの.NET版。Windowsアプリ開発">VB.NET</span>→<span class="term" data-def="Microsoftが開発したオブジェクト指向言語。VB.NETと同系統">C#</span>（同系統で移行容易）<br>
+        ・注意: モダンWeb系への直接転職は難易度高
+      </p>
+    </div>
+    <div class="comp-cell">
+      <p class="comp-cell-label">次に学ぶべき</p>
+      <p class="comp-cell-val">Java基礎 or <span class="term" data-def="Microsoftが開発したオブジェクト指向言語。VB.NETと同系統">C#</span></p>
+      <p class="comp-cell-label" style="margin-top:8px">年収の伸び</p>
+      <p class="comp-cell-val">500万 → <strong>550万</strong>（現実的）</p>
+    </div>
+  </div>
+</div>
+
+<p style="font-size:14px;font-weight:700;margin:24px 0 10px">ペルソナ紐付け表</p>
+<div style="overflow-x:auto;margin-bottom:16px">
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+  <thead>
+    <tr style="background:var(--bg3)">
+      <th style="padding:8px 12px;text-align:left;border:1px solid var(--bg3)">ペルソナ</th>
+      <th style="padding:8px 12px;text-align:left;border:1px solid var(--bg3)">パターン</th>
+      <th style="padding:8px 12px;text-align:left;border:1px solid var(--bg3)">推奨アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:var(--bg2)">
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">田中（26歳・インフラ監視）</td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><strong>C</strong></td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><span class="term" data-def="AWS Cloud Practitioner。AWSの入門資格">AWS CLF</span>取得→構築案件へ</td>
+    </tr>
+    <tr style="background:var(--bg)">
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">渡辺（29歳・インフラ構築）</td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><strong>D</strong></td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">設計案件 or <span class="term" data-def="Site Reliability Engineering。サービスの信頼性を技術で担保する職種">SRE</span>求人</td>
+    </tr>
+    <tr style="background:var(--bg2)">
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">山田（25歳・PHP開発）</td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><strong>A</strong></td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">Laravel深掘り or <span class="term" data-def="汎用性が高くAI/ML需要で急成長中の言語">Python</span>転向</td>
+    </tr>
+    <tr style="background:var(--bg)">
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">鈴木（28歳・Java開発）</td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><strong>B</strong></td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">自社開発へ転職</td>
+    </tr>
+    <tr style="background:var(--bg2)">
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">佐藤（29歳・受託Laravel）</td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><strong>A</strong></td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">自社開発へ（設計経験が武器）</td>
+    </tr>
+    <tr style="background:var(--bg)">
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">伊藤（34歳・SIer Java）</td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)"><strong>B</strong></td>
+      <td style="padding:8px 12px;border:1px solid var(--bg3)">Webスタートアップ（ギャップ注意）</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p style="font-size:14px;font-weight:700;margin:24px 0 10px">インフラ資格ステップアップマップ</p>
+<svg viewBox="0 0 760 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;margin-bottom:16px;display:block">
+  <rect x="0" y="20" width="160" height="60" rx="8" fill="#FAEEDA" stroke="#FAC775"/>
+  <text x="80" y="42" font-size="11" text-anchor="middle" fill="#854F0B" font-weight="600">CCNA/LPIC</text>
+  <text x="80" y="57" font-size="10" text-anchor="middle" fill="#854F0B">監視</text>
+  <text x="80" y="71" font-size="11" text-anchor="middle" fill="#854F0B" font-weight="700">350万</text>
+  <text x="168" y="53" font-size="16" fill="#9CA3AF" text-anchor="middle">→</text>
+  <rect x="180" y="20" width="160" height="60" rx="8" fill="#E6F1FB" stroke="#B5D4F4"/>
+  <text x="260" y="42" font-size="11" text-anchor="middle" fill="#3B6FB6" font-weight="600">AWS CLF</text>
+  <text x="260" y="57" font-size="10" text-anchor="middle" fill="#3B6FB6">構築補助</text>
+  <text x="260" y="71" font-size="11" text-anchor="middle" fill="#3B6FB6" font-weight="700">400万</text>
+  <text x="348" y="53" font-size="16" fill="#9CA3AF" text-anchor="middle">→</text>
+  <rect x="360" y="20" width="160" height="60" rx="8" fill="#E1F5EE" stroke="#9FE1CB"/>
+  <text x="440" y="42" font-size="11" text-anchor="middle" fill="#0F6E56" font-weight="600">AWS SAA</text>
+  <text x="440" y="57" font-size="10" text-anchor="middle" fill="#0F6E56">構築主担当</text>
+  <text x="440" y="71" font-size="11" text-anchor="middle" fill="#0F6E56" font-weight="700">500万</text>
+  <text x="528" y="53" font-size="16" fill="#9CA3AF" text-anchor="middle">→</text>
+  <rect x="540" y="20" width="160" height="60" rx="8" fill="#EEEDFE" stroke="#CECBF6"/>
+  <text x="620" y="42" font-size="11" text-anchor="middle" fill="#534AB7" font-weight="600">AWS SAP</text>
+  <text x="620" y="57" font-size="10" text-anchor="middle" fill="#534AB7">設計</text>
+  <text x="620" y="71" font-size="11" text-anchor="middle" fill="#534AB7" font-weight="700">650万</text>
+</svg>
+
+<p style="font-size:14px;font-weight:700;margin:24px 0 10px">レガシー→モダン転職パス</p>
+<div class="flow-box">
+  <p class="flow-title">代表的な3パターン</p>
+  <div class="flow-steps">
+    <div class="flow-step"><p class="flow-step-num">COBOL</p><p class="flow-step-text">金融・官公庁</p></div>
+    <span class="flow-ar">→</span>
+    <div class="flow-step"><p class="flow-step-num">Java</p><p class="flow-step-text">移行PJ経由</p></div>
+  </div>
+  <p class="flow-note">金融系。30代前半まで推奨。移行プロジェクト需要は続く</p>
+  <div class="flow-steps" style="margin-top:10px">
+    <div class="flow-step"><p class="flow-step-num">VB.NET</p><p class="flow-step-text">Microsoft環境</p></div>
+    <span class="flow-ar">→</span>
+    <div class="flow-step"><p class="flow-step-num">C#</p><p class="flow-step-text">同系統</p></div>
+  </div>
+  <p class="flow-note">同系統で移行容易。Microsoft環境の安定需要</p>
+  <div class="flow-steps" style="margin-top:10px">
+    <div class="flow-step"><p class="flow-step-num">PHP(古い)</p><p class="flow-step-text">レガシー</p></div>
+    <span class="flow-ar">→</span>
+    <div class="flow-step"><p class="flow-step-num">Laravel/Go</p><p class="flow-step-text">モダン化</p></div>
+  </div>
+  <p class="flow-note">モダン化の最短ルート。PHPの文法知識が活かせる</p>
+</div>
+
+<p style="font-size:14px;font-weight:700;margin:24px 0 10px">求人票の必須 vs 歓迎</p>
+<div class="faq">
+  <p class="faq-wrong"><span class="faq-x">誤解</span>「必須: <span class="term" data-def="Facebookが開発したUIライブラリ。SPA開発で世界標準">React</span>」と書いてあったらReact未経験は応募できない</p>
+  <p class="faq-right">「必須」は最低ライン。ただし経験年数1年以上が暗黙の前提。「歓迎」はなくても応募可能。むしろ「歓迎」に書いてある技術を少しでも触っていれば加点評価される。書類作成時は「歓迎」スキルの有無を必ず候補者に確認すること。</p>
+</div>
+
+<div class="tip">
+  <p class="tip-t">まずパターンCから覚える</p>
+  <p class="tip-b">この早見表を覚えるだけで、面談の8割はカバーできる。パターンC（インフラ監視<span class="term" data-def="システムエンジニアリングサービス。常駐型の働き方">SES</span>）が最多なので、まずここから。「<span class="term" data-def="AWS Cloud Practitioner。AWSの入門資格">AWS CLF</span>取得→構築案件」の流れを即答できるようにする。</p>
+</div>
+
+</div>
 <div class="page" id="page-4"><p class="page-title">職務経歴書の読み方</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-5"><p class="page-title">技術レベル見極め質問集</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-6"><p class="page-title">転職パターン5選</p><p class="page-sub">Coming soon...</p></div>
@@ -646,6 +968,48 @@ document.addEventListener('keydown', function(e) {
     if (current > 0) showPage(current - 1);
   }
 });
+function simulate(){
+  var type=document.getElementById('sim-type').value;
+  var phase=document.getElementById('sim-phase').value;
+  var year=document.getElementById('sim-year').value;
+  var company=document.getElementById('sim-company').value;
+  if(!type||!phase||!year||!company){alert('すべて選択してください');return}
+  var base={
+    infra:{monitor:{1:[300,380],3:[350,420],5:[400,450]},build:{1:[400,480],3:[450,530],5:[500,580]},design:{1:[480,550],3:[530,620],5:[580,680]},lead:{1:[550,650],3:[600,700],5:[680,800]}},
+    fe:{monitor:{1:[330,400],3:[380,430],5:[420,470]},build:{1:[380,450],3:[500,580],5:[550,650]},design:{1:[450,550],3:[550,650],5:[620,720]},lead:{1:[550,650],3:[620,720],5:[700,800]}},
+    be:{monitor:{1:[350,420],3:[400,450],5:[430,480]},build:{1:[400,480],3:[480,580],5:[550,650]},design:{1:[480,580],3:[560,660],5:[620,750]},lead:{1:[560,660],3:[640,750],5:[720,800]}},
+    mobile:{monitor:{1:[350,420],3:[400,460],5:[440,500]},build:{1:[400,480],3:[480,580],5:[550,650]},design:{1:[480,580],3:[560,660],5:[620,750]},lead:{1:[560,650],3:[630,740],5:[700,800]}},
+    data:{monitor:{1:[370,440],3:[420,500],5:[470,550]},build:{1:[420,500],3:[550,650],5:[620,720]},design:{1:[500,600],3:[620,720],5:[700,800]},lead:{1:[600,700],3:[700,800],5:[750,900]}},
+    ml:{monitor:{1:[400,480],3:[460,550],5:[520,600]},build:{1:[450,550],3:[600,700],5:[680,780]},design:{1:[550,680],3:[680,800],5:[750,900]},lead:{1:[650,780],3:[750,900],5:[800,1000]}}
+  };
+  var companyRate={ses:0.9,jutaku:1.0,jisha:1.15,mega:1.25};
+  var b=base[type][phase][year];
+  var rate=companyRate[company];
+  var min=Math.round(b[0]*rate);
+  var max=Math.round(b[1]*rate);
+  var nextPhase={monitor:'build',build:'design',design:'lead',lead:null};
+  var nextLabel={build:'構築・実装',design:'設計',lead:'PM・テックリード'};
+  var nextInfo='';
+  if(nextPhase[phase]){
+    var nb=base[type][nextPhase[phase]][year];
+    var nmin=Math.round(nb[0]*rate);
+    var nmax=Math.round(nb[1]*rate);
+    nextInfo='<p class="sim-next">次の工程（'+nextLabel[nextPhase[phase]]+'）に上がると: '+nmin+'万〜'+nmax+'万円</p>';
+  }
+  var advice=[];
+  if(phase==='monitor')advice.push('構築案件への異動 or 転職で +80〜130万');
+  if(company==='ses')advice.push('自社開発企業への転職で +15%（構造的な年収改善）');
+  if(type==='infra'&&phase!=='lead')advice.push('AWS資格(SAA)取得で +30〜50万の市場価値UP');
+  if(type==='fe'||type==='be')advice.push('設計経験を積むことで次の工程に上がれる');
+  if(year==='1')advice.push('まず2年以上の実務経験を積むと書類通過率が上がる');
+  if(type==='ml')advice.push('AI/ML領域は年収の天井が高い。LLM/RAG経験があるとさらに+100万');
+  var adviceHtml=advice.map(function(a){return '・'+a}).join('<br>');
+  document.getElementById('sim-result').innerHTML=
+    '<p class="sim-salary">想定年収: '+min+'万〜'+max+'万円</p>'+
+    nextInfo+
+    '<p class="sim-advice"><strong>年収を上げるには:</strong><br>'+adviceHtml+'</p>';
+  document.getElementById('sim-result').classList.add('show');
+}
 function showSeg(idx){
   document.querySelectorAll('.seg-container').forEach((el,i)=>{el.classList.toggle('active',i===idx)});
   document.querySelectorAll('.seg-tab').forEach((el,i)=>{el.classList.toggle('active',i===idx)});
