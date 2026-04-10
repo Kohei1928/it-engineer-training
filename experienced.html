@@ -357,7 +357,263 @@ details[open] summary{margin-bottom:8px}
   <p class="tip-b">SES1年でも実務経験者として扱う。ただし案件の中身が全て。監視1年と構築1年では市場価値が全く違う。</p>
 </div>
 </div>
-<div class="page" id="page-1"><p class="page-title">工程の階段</p><p class="page-sub">Coming soon...</p></div>
+<div class="page" id="page-1">
+<p class="page-title">工程の階段 — 下流→上流で何が変わるか</p>
+<p class="page-sub">SESエンジニア最大の関心事。上流に行くと仕事・年収・働き方が全て変わる</p>
+
+<div class="proj-tabs">
+  <button class="proj-tab active" onclick="showProj(0)">インフラ</button>
+  <button class="proj-tab" onclick="showProj(1)">開発</button>
+</div>
+
+<!-- インフラタブ -->
+<div class="proj-container active">
+
+<svg class="ladder-svg" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowI" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+  <!-- Step 1: 監視・運用 -->
+  <rect x="20" y="260" width="160" height="80" rx="10" fill="#FAECE7" stroke="#F5C4B3" stroke-width="1.5"/>
+  <text x="100" y="292" text-anchor="middle" font-size="15" font-weight="700" fill="#993C1D" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">監視・運用</text>
+  <text x="100" y="316" text-anchor="middle" font-size="12" fill="#993C1D" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">300-400万</text>
+  <!-- Step 2: 構築 -->
+  <rect x="220" y="190" width="160" height="80" rx="10" fill="#FAEEDA" stroke="#FAC775" stroke-width="1.5"/>
+  <text x="300" y="222" text-anchor="middle" font-size="15" font-weight="700" fill="#854F0B" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">構築</text>
+  <text x="300" y="246" text-anchor="middle" font-size="12" fill="#854F0B" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">400-530万</text>
+  <!-- Step 3: 設計 -->
+  <rect x="420" y="120" width="160" height="80" rx="10" fill="#EAF3DE" stroke="#C0DD97" stroke-width="1.5"/>
+  <text x="500" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#3B6D11" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">設計</text>
+  <text x="500" y="176" text-anchor="middle" font-size="12" fill="#3B6D11" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">530-680万</text>
+  <!-- Step 4: PM・アーキテクト -->
+  <rect x="620" y="50" width="160" height="80" rx="10" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="1.5"/>
+  <text x="700" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#3B6FB6" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">PM・アーキテクト</text>
+  <text x="700" y="106" text-anchor="middle" font-size="12" fill="#3B6FB6" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">680-800万+</text>
+  <!-- Arrows -->
+  <line x1="185" y1="285" x2="215" y2="245" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowI)"/>
+  <line x1="385" y1="215" x2="415" y2="175" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowI)"/>
+  <line x1="585" y1="145" x2="615" y2="105" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowI)"/>
+</svg>
+
+<!-- Card 1: 監視・運用 -->
+<div class="card" style="background:var(--coral-bg);border-color:var(--coral-border)">
+  <span class="badge badge-red">年収 300-400万</span>
+  <p class="card-title">監視・運用</p>
+  <p class="card-desc"><strong>仕事内容:</strong> アラート対応、手順書に沿った定型作業、ログ確認、夜勤シフトあり</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    8:30 出社・前直からの引継ぎ（アラート状況・対応履歴）<br>
+    9:00 監視ダッシュボード確認（<span class="term" data-def="サーバー・NWの統合監視ツール">Zabbix</span>/<span class="term" data-def="クラウド型の監視・分析プラットフォーム">Datadog</span>）<br>
+    9:30 定常作業（バックアップ確認、ログ確認、パッチ適用）<br>
+    12:00 昼休み<br>
+    13:00 手順書に沿ったメンテナンス作業<br>
+    15:00 アラート対応（発生時）→ 手順書通りに一次対応 → エスカレーション<br>
+    17:00 日報作成・次直への引継ぎ準備<br>
+    17:30 退社（夜勤シフトの場合は交代）
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> <span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span>/<span class="term" data-def="Cisco認定ネットワーク技術者。NW機器シェア最大手の資格">CCNA</span>、<span class="term" data-def="サーバーOSの標準。エンジニアの基礎スキル">Linux</span>基本操作、手順遵守</p>
+  <p class="card-desc" style="margin-top:8px"><strong>次の工程に上がるために:</strong> 「<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span> CLF資格を取得する」「構築作業の手伝いを志願する」「<span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>の基礎を独学する」</p>
+</div>
+
+<p class="arrow-text">↓ ステップアップに必要なこと ↓</p>
+
+<!-- Card 2: 構築 -->
+<div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)">
+  <span class="badge" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)">年収 400-530万</span>
+  <p class="card-title">構築</p>
+  <p class="card-desc"><strong>仕事内容:</strong> 設計書に基づくサーバー/NW構築、環境構築、テスト（疎通・負荷）</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    9:30 出社・Slack確認<br>
+    10:00 朝会（15分スタンドアップ）<br>
+    10:15 設計書を読んで構築作業（サーバー構築/NW設定/<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>環境構築）<br>
+    12:00 昼休み<br>
+    13:00 構築作業の続き + テスト（疎通確認、負荷テスト）<br>
+    15:00 チームメンバーとレビュー（設定値のダブルチェック）<br>
+    16:00 ドキュメント更新（手順書・構成図）<br>
+    17:30 夕会（課題共有）→ 退社
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> <span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>/Azure, <span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>, <span class="term" data-def="アプリの実行環境をコンテナ化するツール">Docker</span>, 構成図が読める</p>
+  <p class="card-desc" style="margin-top:8px"><strong>次の工程に上がるために:</strong> 「AWS SAA取得」「自分で構成を提案してみる」「設計書の意図を理解して質問できるようになる」</p>
+</div>
+
+<p class="arrow-text">↓ ステップアップに必要なこと ↓</p>
+
+<!-- Card 3: 設計 -->
+<div class="card" style="background:var(--green-bg);border-color:var(--green-border)">
+  <span class="badge badge-green">年収 530-680万</span>
+  <p class="card-title">設計</p>
+  <p class="card-desc"><strong>仕事内容:</strong> 要件からインフラ設計書を作成、技術選定、構築チームへの指示</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    9:30 出社・メール確認<br>
+    10:00 要件整理MTG（クライアント or 社内PM）<br>
+    11:00 設計書作成（基本設計 → 詳細設計）<br>
+    12:00 昼休み<br>
+    13:00 設計レビュー（チーム内 or クライアント向け）<br>
+    14:00 構築チームからの質問対応・技術判断<br>
+    15:30 技術調査（新技術の検証、PoC作成）<br>
+    17:00 設計書修正・翌日の準備<br>
+    18:00 退社
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> アーキテクチャ設計、非機能要件（可用性・セキュリティ）、技術選定能力</p>
+  <p class="card-desc" style="margin-top:8px"><strong>次の工程に上がるために:</strong> 「PJ全体を見渡す視点」「顧客折衝力」「チームマネジメント経験」</p>
+</div>
+
+<p class="arrow-text">↓ ステップアップに必要なこと ↓</p>
+
+<!-- Card 4: PM・アーキテクト -->
+<div class="card" style="background:var(--blue-bg);border-color:var(--blue-border)">
+  <span class="badge badge-fe">年収 680-800万+</span>
+  <p class="card-title">PM・アーキテクト</p>
+  <p class="card-desc"><strong>仕事内容:</strong> プロジェクト全体統括、技術方針決定、顧客との折衝、チーム育成</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    9:30 出社・メール/Slack確認（複数PJの状況把握）<br>
+    10:00 クライアントMTG（進捗報告・要件調整）<br>
+    11:00 チーム1on1 or 技術相談対応<br>
+    12:00 昼休み<br>
+    13:00 プロジェクト進捗管理（スケジュール・リスク確認）<br>
+    14:00 技術方針の意思決定（アーキテクチャ選定・ツール選定）<br>
+    15:30 採用面接 or 社内勉強会<br>
+    17:00 資料作成・レポート<br>
+    18:30 退社
+  </p>
+</div>
+
+<p style="font-size:13px;font-weight:600;margin:16px 0 8px">SES / 受託 / 自社開発の比較</p>
+<div class="comp comp-ses">
+  <p class="comp-title">SES</p>
+  <p class="comp-desc">同じ構築案件でも、クライアント先に常駐。指示ベースで動くことが多い。案件終了で別現場へ。</p>
+</div>
+<div class="comp comp-jut">
+  <p class="comp-title">受託</p>
+  <p class="comp-desc">自社内チームで開発。納品物の品質責任を負う。プロジェクト完了で次の案件へ。</p>
+</div>
+<div class="comp comp-jis">
+  <p class="comp-title">自社開発</p>
+  <p class="comp-desc">自社プロダクトに継続コミット。企画段階から関与できる。</p>
+</div>
+
+<div class="tip">
+  <p class="tip-t">「案件ガチャ」問題</p>
+  <p class="tip-b">SESでは会社が案件を決めるため、監視案件ばかりアサインされるリスクがある。CAとしては「今の会社で案件変更は可能か？」を必ず確認。不可能なら転職支援に切り替える。</p>
+</div>
+
+</div>
+
+<!-- 開発タブ -->
+<div class="proj-container">
+
+<svg class="ladder-svg" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowD" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+  <!-- Step 1: テスト・保守 -->
+  <rect x="20" y="260" width="160" height="80" rx="10" fill="#FAECE7" stroke="#F5C4B3" stroke-width="1.5"/>
+  <text x="100" y="292" text-anchor="middle" font-size="14" font-weight="700" fill="#993C1D" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">テスト・保守</text>
+  <text x="100" y="316" text-anchor="middle" font-size="12" fill="#993C1D" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">350-420万</text>
+  <!-- Step 2: 実装/コーディング -->
+  <rect x="220" y="190" width="160" height="80" rx="10" fill="#FAEEDA" stroke="#FAC775" stroke-width="1.5"/>
+  <text x="300" y="218" text-anchor="middle" font-size="13" font-weight="700" fill="#854F0B" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">実装/コーディング</text>
+  <text x="300" y="246" text-anchor="middle" font-size="12" fill="#854F0B" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">420-550万</text>
+  <!-- Step 3: 設計・実装 -->
+  <rect x="420" y="120" width="160" height="80" rx="10" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1.5"/>
+  <text x="500" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#0F6E56" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">設計・実装</text>
+  <text x="500" y="176" text-anchor="middle" font-size="12" fill="#0F6E56" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">550-700万</text>
+  <!-- Step 4: テックリード・PM -->
+  <rect x="620" y="50" width="160" height="80" rx="10" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="1.5"/>
+  <text x="700" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#3B6FB6" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">テックリード・PM</text>
+  <text x="700" y="106" text-anchor="middle" font-size="12" fill="#3B6FB6" font-family="Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif">700-800万+</text>
+  <!-- Arrows -->
+  <line x1="185" y1="285" x2="215" y2="245" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowD)"/>
+  <line x1="385" y1="215" x2="415" y2="175" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowD)"/>
+  <line x1="585" y1="145" x2="615" y2="105" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowD)"/>
+</svg>
+
+<!-- Card 1: テスト・保守 -->
+<div class="card" style="background:var(--coral-bg);border-color:var(--coral-border)">
+  <span class="badge badge-red">年収 350-420万</span>
+  <p class="card-title">テスト・保守</p>
+  <p class="card-desc"><strong>仕事内容:</strong> バグ修正、テスト実行、ドキュメント整備</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    10:00 朝会（バグ報告・タスク確認）<br>
+    10:15 テストケース実行・バグ修正<br>
+    12:00 昼休み<br>
+    13:00 バグ修正の続き・ドキュメント更新<br>
+    16:00 進捗報告<br>
+    17:30 退社
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> <span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>/<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>基礎, <span class="term" data-def="ソースコードのバージョン管理ツール">Git</span>, テスト設計の基礎</p>
+  <p class="card-desc" style="margin-top:8px"><strong>次の工程に上がるために:</strong> 「機能実装を自ら志願する」「コードレビューに参加する」「ポートフォリオを作る」</p>
+</div>
+
+<p class="arrow-text">↓ ステップアップに必要なこと ↓</p>
+
+<!-- Card 2: 実装/コーディング -->
+<div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)">
+  <span class="badge" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)">年収 420-550万</span>
+  <p class="card-title">実装/コーディング</p>
+  <p class="card-desc"><strong>仕事内容:</strong> 設計書に基づく機能実装、PR作成、コードレビュー</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    10:00 朝会（スプリント進捗確認）<br>
+    10:15 機能実装（<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/<span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>/<span class="term" data-def="JavaScriptのUIフレームワーク。フロントエンド求人で最多">React</span>等）<br>
+    12:00 昼休み<br>
+    13:00 実装の続き → PR作成・レビュー依頼<br>
+    15:00 チームメンバーのレビュー対応<br>
+    17:00 <span class="term" data-def="ソースコードのバージョン管理ツール">Git</span>コミット・翌日準備<br>
+    18:00 退社
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> 主要言語（<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/<span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>/<span class="term" data-def="JavaScriptのUIフレームワーク。フロントエンド求人で最多">React</span>等）, <span class="term" data-def="ソースコードのバージョン管理ツール">Git</span>, <span class="term" data-def="アプリの実行環境をコンテナ化するツール">Docker</span></p>
+  <p class="card-desc" style="margin-top:8px"><strong>次の工程に上がるために:</strong> 「設計書を自分で書いてみる」「技術選定に意見を出す」「後輩のレビュアーになる」</p>
+</div>
+
+<p class="arrow-text">↓ ステップアップに必要なこと ↓</p>
+
+<!-- Card 3: 設計・実装 -->
+<div class="card" style="background:var(--teal-bg);border-color:var(--teal-border)">
+  <span class="badge badge-data">年収 550-700万</span>
+  <p class="card-title">設計・実装</p>
+  <p class="card-desc"><strong>仕事内容:</strong> 基本設計〜実装、技術選定に関与、後輩指導</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    10:00 設計MTG（要件から基本設計に落とし込み）<br>
+    11:00 設計書作成・実装（並行）<br>
+    12:00 昼休み<br>
+    13:00 実装・レビュー対応<br>
+    15:00 後輩エンジニアへの設計説明・指導<br>
+    17:00 設計書最終確認<br>
+    18:30 退社
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> 基本設計〜詳細設計, <span class="term" data-def="コードの変更を自動でテスト・デプロイする仕組み">CI/CD</span>, <span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>基礎, <span class="term" data-def="オープンソースのリレーショナルDB。Web開発で最も普及">MySQL</span>設計</p>
+  <p class="card-desc" style="margin-top:8px"><strong>次の工程に上がるために:</strong> 「PJ全体のアーキテクチャを把握する」「顧客向けの技術説明経験を積む」「採用・育成に関与する」</p>
+</div>
+
+<p class="arrow-text">↓ ステップアップに必要なこと ↓</p>
+
+<!-- Card 4: テックリード・PM -->
+<div class="card" style="background:var(--blue-bg);border-color:var(--blue-border)">
+  <span class="badge badge-fe">年収 700-800万+</span>
+  <p class="card-title">テックリード・PM</p>
+  <p class="card-desc"><strong>仕事内容:</strong> 技術方針決定、チーム統率、採用面接</p>
+  <p class="card-desc" style="margin-top:8px"><strong>1日の流れ:</strong><br>
+    10:00 設計レビュー（アーキテクチャ方針の最終判断）<br>
+    11:00 チームメンバーとの1on1<br>
+    12:00 昼休み<br>
+    13:00 技術方針の意思決定（フレームワーク選定・技術負債対応）<br>
+    15:00 採用面接（エンジニア候補者の技術評価）<br>
+    17:00 ロードマップ・資料作成<br>
+    19:00 退社
+  </p>
+  <p class="card-desc" style="margin-top:8px"><strong>必要スキル:</strong> システムアーキテクチャ, チームマネジメント, 採用・育成, プロジェクト管理</p>
+</div>
+
+<div class="tip">
+  <p class="tip-t">開発系の「上流」は設計力 × コミュニケーション力</p>
+  <p class="tip-b">インフラと違い、開発系は「設計書が書けるか」「非エンジニアに技術を説明できるか」が上流への鍵。コーディングだけが得意でも上には上がれない。</p>
+</div>
+
+</div>
+</div>
 <div class="page" id="page-2"><p class="page-title">年収マップ</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-3"><p class="page-title">候補者パターン早見表</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-4"><p class="page-title">職務経歴書の読み方</p><p class="page-sub">Coming soon...</p></div>
