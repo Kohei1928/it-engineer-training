@@ -242,7 +242,121 @@ details[open] summary{margin-bottom:8px}
 </nav>
 
 <main class="main">
-<div class="page active" id="page-0"><p class="page-title">SESエンジニアの人物図鑑</p><p class="page-sub">Coming soon...</p></div>
+<div class="page active" id="page-0">
+<p class="page-title">SESエンジニアの人物図鑑</p>
+<p class="page-sub">SES出身の候補者がどんな人で、何に悩んでいるかを理解する</p>
+
+<div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)">
+  <p class="card-title">契約形態</p>
+  <p class="card-desc"><span class="term" data-def="システムエンジニアリングサービス。準委任契約でクライアント先に常駐する働き方">SES</span>は「準委任契約」。派遣と違い、指揮命令権はSES企業にある。クライアント先に常駐して技術力を提供する働き方。</p>
+</div>
+<div class="card" style="background:var(--coral-bg);border-color:var(--coral-border)">
+  <p class="card-title">マージン構造</p>
+  <p class="card-desc">エンジニアの月額単価から30-50%がSES企業の取り分。単価60万なら手取りは30-42万。年収の天井が構造的に低い。</p>
+</div>
+<div class="card" style="background:var(--red-bg);border-color:var(--red-border)">
+  <p class="card-title">案件ガチャ</p>
+  <p class="card-desc">エンジニアが案件を選べないケースが多い。「監視しかやらせてもらえない」はSES出身者の最大の不満。優良SESは案件選択権がある。</p>
+</div>
+
+<div class="seg-tabs">
+  <button class="seg-tab active" onclick="showSeg(0)">SESインフラ</button>
+  <button class="seg-tab" onclick="showSeg(1)">SES開発</button>
+  <button class="seg-tab" onclick="showSeg(2)">受託・SIer</button>
+</div>
+
+<div class="seg-container active">
+  <div class="persona">
+    <p class="persona-name">田中 大輔（26歳）</p>
+    <p class="persona-meta">前職: アパレル販売 → SES 1年半 | 年収: 350万</p>
+    <p class="persona-detail">
+      <strong>現在:</strong> 大手銀行のインフラ監視オペレーション。夜勤あり。アラート対応と手順書に沿った定型作業が中心。<br>
+      <strong>スキル:</strong> <span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span> Level1取得、<span class="term" data-def="サーバーOSの標準。エンジニアの基礎スキル">Linux</span>基本操作、シェルスクリプト少々<br>
+      <strong>転職理由:</strong> 「監視ばかりで成長が止まった気がする。構築をやりたい」
+    </p>
+    <div class="persona-judge">
+      <strong>CAの判断ポイント:</strong> 自主学習しているか（LPIC取得は◎）。現SESで構築案件に移れるか確認 → 不可なら転職。<br>
+      <strong>提案の方向性:</strong> パターンC（インフラ監視→構築）。<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span> CLF取得を推奨。年収350万→構築で450万目標。
+    </div>
+  </div>
+  <div class="persona">
+    <p class="persona-name">渡辺 健太（29歳）</p>
+    <p class="persona-meta">SES 3年 | 年収: 480万</p>
+    <p class="persona-detail">
+      <strong>現在:</strong> 通信会社の<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>インフラ構築。<span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>使用。設計書に基づく構築とテスト。<br>
+      <strong>スキル:</strong> <span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>(EC2/RDS/S3), <span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>, <span class="term" data-def="アプリの実行環境をコンテナ化するツール">Docker</span>, <span class="term" data-def="サーバーOSの標準。エンジニアの基礎スキル">Linux</span><br>
+      <strong>転職理由:</strong> 「設計がやりたい。上流に行きたい。」
+    </p>
+    <div class="persona-judge">
+      <strong>CAの判断ポイント:</strong> 設計経験の有無を確認。AWS SAA取得推奨。構築実績で自社開発のインフラチーム or <span class="term" data-def="Site Reliability Engineering。サービスの信頼性を技術で担保する職種">SRE</span>求人が狙える。<br>
+      <strong>提案の方向性:</strong> パターンD。年収480万→設計で600万、SREなら650万目標。
+    </div>
+  </div>
+</div>
+
+<div class="seg-container">
+  <div class="persona">
+    <p class="persona-name">山田 美咲（25歳）</p>
+    <p class="persona-meta">Webスクール卒→SES 1年 | 年収: 380万</p>
+    <p class="persona-detail">
+      <strong>現在:</strong> ECサイトのバグ修正・テスト（<span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>）。コードは書けるが設計経験なし。<br>
+      <strong>スキル:</strong> <span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>基礎, HTML/CSS, <span class="term" data-def="ソースコードのバージョン管理ツール">Git</span><br>
+      <strong>転職理由:</strong> 「もっとモダンな技術を使いたい。Reactとか触ってみたい」
+    </p>
+    <div class="persona-judge">
+      <strong>CAの判断ポイント:</strong> ポートフォリオの有無が鍵。PHP→<span class="term" data-def="PHPのバックエンドフレームワーク。Web開発で広く使用">Laravel</span>深掘り or 言語変更（<span class="term" data-def="JavaScriptのUIフレームワーク。フロントエンド求人で最多">React</span>）か方向性を確認。<br>
+      <strong>提案の方向性:</strong> パターンA。年収380万→Laravel実務で450万目標。
+    </div>
+  </div>
+  <div class="persona">
+    <p class="persona-name">鈴木 翔太（28歳）</p>
+    <p class="persona-meta">SES→SES転職で通算4年 | 年収: 480万</p>
+    <p class="persona-detail">
+      <strong>現在:</strong> EC企業で<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/<span class="term" data-def="Javaのバックエンドフレームワーク。大手・金融系で多い">Spring Boot</span>のバックエンド開発。チーム開発経験豊富。<br>
+      <strong>スキル:</strong> <span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>, <span class="term" data-def="Javaのバックエンドフレームワーク。大手・金融系で多い">Spring Boot</span>, <span class="term" data-def="オープンソースのリレーショナルDB。Web開発で最も普及">MySQL</span>, <span class="term" data-def="アプリの実行環境をコンテナ化するツール">Docker</span>, <span class="term" data-def="ソースコードのバージョン管理ツール">Git</span><br>
+      <strong>転職理由:</strong> 「年収が上がらない。SESの構造的限界を感じる」
+    </p>
+    <div class="persona-judge">
+      <strong>CAの判断ポイント:</strong> スキルは十分。自社開発への転職が有効。Java実務4年は市場価値高い。<br>
+      <strong>提案の方向性:</strong> パターンB。年収480万→自社開発で580-620万目標。
+    </div>
+  </div>
+</div>
+
+<div class="seg-container">
+  <div class="persona">
+    <p class="persona-name">佐藤 彩花（29歳）</p>
+    <p class="persona-meta">新卒から受託開発3.5年 | 年収: 500万</p>
+    <p class="persona-detail">
+      <strong>現在:</strong> <span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>/<span class="term" data-def="PHPのバックエンドフレームワーク。Web開発で広く使用">Laravel</span>での業務システム開発。基本設計から担当。<br>
+      <strong>スキル:</strong> <span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>, <span class="term" data-def="PHPのバックエンドフレームワーク。Web開発で広く使用">Laravel</span>, <span class="term" data-def="オープンソースのリレーショナルDB。Web開発で最も普及">MySQL</span>, <span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>(EC2/RDS), 基本設計<br>
+      <strong>転職理由:</strong> 「自社プロダクトを持っている会社で働きたい」
+    </p>
+    <div class="persona-judge">
+      <strong>CAの判断ポイント:</strong> モダン技術キャッチアップ意欲を確認。設計経験は大きな強み。<br>
+      <strong>提案の方向性:</strong> パターンA。年収500万→自社開発で550万（横ばい〜微増。環境の質を重視）。
+    </div>
+  </div>
+  <div class="persona">
+    <p class="persona-name">伊藤 雅人（34歳）</p>
+    <p class="persona-meta">SIer 7年 | 年収: 650万</p>
+    <p class="persona-detail">
+      <strong>現在:</strong> 大手金融の基幹システム刷新PJのサブリーダー。<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/Spring。要件定義〜テスト全工程。<br>
+      <strong>スキル:</strong> <span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>, Spring, <span class="term" data-def="エンタープライズ向けDB。金融・大手企業で使用">Oracle</span>, 要件定義, 基本設計, チームリード<br>
+      <strong>転職理由:</strong> 「Webスタートアップでプロダクト開発がしたい」
+    </p>
+    <div class="persona-judge">
+      <strong>CAの判断ポイント:</strong> 上流経験は強み。ただし開発速度・ツール習熟（<span class="term" data-def="ソースコードのバージョン管理ツール">Git</span>, <span class="term" data-def="コードの変更を自動でテスト・デプロイする仕組み">CI/CD</span>, アジャイル）のギャップを事前説明。<br>
+      <strong>提案の方向性:</strong> パターンB応用。年収650万→スタートアップで600-700万（横ばい〜微減の可能性も率直に伝える）。
+    </div>
+  </div>
+</div>
+
+<div class="tip">
+  <p class="tip-t">微経験 ≠ 未経験</p>
+  <p class="tip-b">SES1年でも実務経験者として扱う。ただし案件の中身が全て。監視1年と構築1年では市場価値が全く違う。</p>
+</div>
+</div>
 <div class="page" id="page-1"><p class="page-title">工程の階段</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-2"><p class="page-title">年収マップ</p><p class="page-sub">Coming soon...</p></div>
 <div class="page" id="page-3"><p class="page-title">候補者パターン早見表</p><p class="page-sub">Coming soon...</p></div>
