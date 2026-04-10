@@ -1464,7 +1464,154 @@ details[open] summary{margin-bottom:8px}
 </div>
 
 </div>
-<div class="page" id="page-7"><p class="page-title">ロールプレイ練習</p><p class="page-sub">Coming soon...</p></div>
+<div class="page" id="page-7">
+<p class="page-title">ロールプレイ練習 — Ch1-7の知識を使ってみよう</p>
+<p class="page-sub">シナリオを読んで、あなたならどう対応するか考えてください。ヒントと模範対応は折りたたみで確認できます</p>
+
+<div class="rp-tabs">
+  <button class="rp-tab active" onclick="showRp(0)">セグメント判定</button>
+  <button class="rp-tab" onclick="showRp(1)">経歴書判定</button>
+  <button class="rp-tab" onclick="showRp(2)">年収調整</button>
+  <button class="rp-tab" onclick="showRp(3)">パターン判定</button>
+  <button class="rp-tab" onclick="showRp(4)">総合判断</button>
+</div>
+
+<!-- シナリオ1 -->
+<div class="rp-container active">
+  <div class="scenario">
+    <p class="scenario-title">シナリオ1: セグメント判定（Ch1の実践）</p>
+    <div class="scenario-situation">
+      <strong>【状況】</strong><br>
+      田中さん（26歳・男性）が面談に来ました。<br>
+      「前職はアパレル販売で、1年半前に<span class="term" data-def="システムエンジニアリングサービス。準委任契約でクライアント先に常駐する働き方">SES</span>企業に転職しました。今は大手銀行の監視チームで夜勤もやっています。<span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span> Level1は取りました。でも正直、監視だけで将来が不安です。」
+    </div>
+    <p class="scenario-question">この候補者はどのセグメントですか？まず何を確認しますか？</p>
+    <details>
+      <summary>ヒントを見る</summary>
+      <div class="tip">
+        <p class="tip-b">Ch1の3セグメントを思い出してください。<br>経験1.5年、監視工程 → <strong>微経験セグメント</strong><br>CAが確認すべき3項目: (1)自主学習の有無 (2)構築への意欲 (3)現SESでの案件変更可能性</p>
+      </div>
+    </details>
+    <details>
+      <summary>模範対応を見る</summary>
+      <div class="talk">
+        <p class="talk-a">CA: 「<span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span>取得されたんですね、素晴らしいです。ちなみに、今の会社で構築の案件に移りたいという相談はされましたか？」<br><br>→ 社内異動の可能性を先に確認。不可なら転職支援に進む。<br>→ 年収シミュレーター: 監視×インフラ×1年×<span class="term" data-def="システムエンジニアリングサービス。準委任契約でクライアント先に常駐する働き方">SES</span> = 310-340万 → 構築に移れば400-480万</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- シナリオ2 -->
+<div class="rp-container">
+  <div class="scenario">
+    <p class="scenario-title">シナリオ2: 経歴書判定（Ch5の実践）</p>
+    <div class="scenario-situation">
+      <strong>【状況】</strong> 以下の職務経歴書が届きました。<br><br>
+      ○○（27歳）<br>
+      PJ1: 金融系サーバー運用監視（2022.4-2023.1）9ヶ月 — 監視オペレーション — <span class="term" data-def="サーバーOSの標準。エンジニアの基礎スキル">Linux</span>/Zabbix<br>
+      PJ2: 官公庁系システム運用（2023.2-2023.9）7ヶ月 — システム監視、ヘルプデスク — Windows Server/JP1<br>
+      PJ3: 製造業インフラ運用保守（2023.10-現在） — 運用保守に携わる — <span class="term" data-def="サーバーOSの標準。エンジニアの基礎スキル">Linux</span>/VMware<br>
+      資格: <span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span> Level1
+    </div>
+    <p class="scenario-question">レッドフラグはいくつ？工程レベルは？</p>
+    <details>
+      <summary>ヒントを見る</summary>
+      <div class="tip">
+        <p class="tip-b">Ch5の5ポイントとレッドフラグを確認。案件の短期切替、工程停滞、受け身表現に注目。</p>
+      </div>
+    </details>
+    <details>
+      <summary>模範対応を見る</summary>
+      <div class="talk">
+        <p class="talk-a">レッドフラグ4つ:<br>
+(1) 3件連続で監視・運用 → 工程が上がっていない<br>
+(2) 「携わる」= 受け身表現<br>
+(3) 2年半で<span class="term" data-def="Linux技術者認定。サーバー管理の基礎資格">LPIC</span>1つのみ → 自主学習の形跡が薄い<br>
+(4) PJ1-2が短期 → 案件ガチャの可能性<br><br>
+工程レベル: 監視レベル<br>
+→ 面談では「手順書にないことを自分で対応した経験」を深掘り</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- シナリオ3 -->
+<div class="rp-container">
+  <div class="scenario">
+    <p class="scenario-title">シナリオ3: 年収期待値調整（Ch3の実践）</p>
+    <div class="scenario-situation">
+      <strong>【状況】</strong><br>
+      佐藤さん（29歳）、受託開発3.5年（<span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>/<span class="term" data-def="PHPのバックエンドフレームワーク。Web開発で広く使用">Laravel</span>）。「自社開発に行きたい。年収は600万希望。今は500万です。」
+    </div>
+    <p class="scenario-question">この年収希望は妥当？どう伝える？</p>
+    <details>
+      <summary>ヒントを見る</summary>
+      <div class="tip">
+        <p class="tip-b">Ch3シミュレーター: バックエンド×構築・実装×3-5年×自社開発 = 550-670万。600万は妥当レンジ。</p>
+      </div>
+    </details>
+    <details>
+      <summary>模範対応を見る</summary>
+      <div class="talk">
+        <p class="talk-a">CA: 「600万は十分に狙えるレンジです。ただ率直にお伝えすると、<span class="term" data-def="Web開発で広く使われるプログラミング言語">PHP</span>/<span class="term" data-def="PHPのバックエンドフレームワーク。Web開発で広く使用">Laravel</span>の経験だけだと550万前後のオファーが多い実態です。600万を確実にするために2つの武器があります。1つ目は設計経験。佐藤さんは基本設計から担当されているので、大きな強みです。2つ目はモダン技術への意欲。<span class="term" data-def="JavaScriptに型を追加した言語。モダン開発の標準">TypeScript</span>や<span class="term" data-def="アプリの実行環境をコンテナ化するツール">Docker</span>の学習を始めていると評価がグッと上がります。」</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- シナリオ4 -->
+<div class="rp-container">
+  <div class="scenario">
+    <p class="scenario-title">シナリオ4: パターン判定 + 転職提案（Ch4+Ch7の実践）</p>
+    <div class="scenario-situation">
+      <strong>【状況】</strong><br>
+      鈴木さん（28歳）、<span class="term" data-def="システムエンジニアリングサービス。準委任契約でクライアント先に常駐する働き方">SES</span> 4年（<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/<span class="term" data-def="Javaのバックエンドフレームワーク。大手・金融系で多い">Spring Boot</span>）。「もう4年SESにいるのに年収480万。友達は自社開発で600万もらってる。」
+    </div>
+    <p class="scenario-question">どのパターン？何を提案？</p>
+    <details>
+      <summary>ヒントを見る</summary>
+      <div class="tip">
+        <p class="tip-b">Ch4パターンB（<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/Spring × <span class="term" data-def="システムエンジニアリングサービス。準委任契約でクライアント先に常駐する働き方">SES</span> 3-5年）、Ch7パターン3（SES→自社開発）</p>
+      </div>
+    </details>
+    <details>
+      <summary>模範対応を見る</summary>
+      <div class="talk">
+        <p class="talk-a">CA: 「4年の<span class="term" data-def="大規模システム・金融系で主流のプログラミング言語">Java</span>/<span class="term" data-def="Javaのバックエンドフレームワーク。大手・金融系で多い">Spring</span>経験は非常に市場価値が高いです。率直に言うと、SESの年収480万は市場相場より低めです。自社開発なら550-620万のレンジが見込めます。ただ3つ準備が必要です。」<br>→ Ch7パターン3の3条件（設計経験・<span class="term" data-def="ソースコードのバージョン管理ツール">GitHub</span>・自社開発志望理由の言語化）を説明</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- シナリオ5 -->
+<div class="rp-container">
+  <div class="scenario">
+    <p class="scenario-title">シナリオ5: 総合判断（全章の実践）</p>
+    <div class="scenario-situation">
+      <strong>【状況】</strong><br>
+      渡辺さん（29歳）、<span class="term" data-def="システムエンジニアリングサービス。準委任契約でクライアント先に常駐する働き方">SES</span> 3年。インフラ構築（<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>/<span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>）。「設計がやりたい。自社開発にも興味がある。年収600万欲しい。」
+    </div>
+    <p class="scenario-question">ベストな提案は？</p>
+    <details>
+      <summary>ヒントを見る</summary>
+      <div class="tip">
+        <p class="tip-b">Ch1中堅、Ch2構築→設計、Ch3インフラ×構築×3年×自社開発=520-670万、Ch4パターンD、Ch7パターン3 or 4</p>
+      </div>
+    </details>
+    <details>
+      <summary>模範対応を見る</summary>
+      <div class="talk">
+        <p class="talk-a">CA: 「渡辺さんの構築経験＋<span class="term" data-def="Amazon Web Services。世界シェア1位のクラウドサービス">AWS</span>/<span class="term" data-def="インフラをコードで管理するツール(IaC)">Terraform</span>は今の市場で非常に需要が高い。選択肢は2つ。1つ目は自社開発のインフラチームで設計ポジション（550-650万）。2つ目は<span class="term" data-def="Site Reliability Engineering。サービスの信頼性を技術で担保する職種">SRE</span>/DevOps（600-700万、ただし<span class="term" data-def="汎用プログラミング言語。AI・自動化領域で主流">Python</span>/Goスクリプト力が必要）。どちらの方向に興味がありますか？」</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="tip" style="margin-top:16px">
+  <p class="tip-b">この練習で迷ったら、該当する章に戻って確認してください。研修後も、実際の面談前にシナリオを1つ読み返すだけで対応力が上がります。</p>
+</div>
+
+</div>
 </main>
 
 <script>
