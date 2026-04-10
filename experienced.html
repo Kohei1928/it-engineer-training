@@ -677,7 +677,7 @@ details[open] summary{margin-bottom:8px}
 
 <div class="card" style="background:var(--amber-bg);border-color:var(--amber-border)">
   <p class="card-title">レバー4: 資格を取る</p>
-  <p class="card-desc"><span class="term" data-def="AWS Solutions Architect Associate。AWSの設計スキルを証明する資格">AWS SAA</span>で <strong>+30〜50万</strong>、<span class="term" data-def="Cisco Certified Network Associate。ネットワークエンジニアの登竜門資格">CCNA</span>で <strong>+20〜30万</strong>。特にインフラ系は資格が年収に直結する。スキルの証明手段として採用担当者に伝わりやすい。</p>
+  <p class="card-desc"><span class="term" data-def="AWS Solutions Architect Associate。AWSの設計スキルを証明する資格">AWS SAA</span>で <strong>+30〜50万</strong>、<span class="term" data-def="Cisco Certified Network Associate。ネットワークエンジニアの登竜門資格">CCNA</span>で <strong>+20〜30万</strong>。特にインフラ系は<strong>資格が SES単価に直結</strong>する。SES企業はクライアントへの提案時に資格を単価の根拠にするため、資格取得 → 単価UP → 年収UPの構造がある。開発系は<span class="term" data-def="国家試験。ITエンジニアの基礎知識を証明">基本情報技術者</span>→<span class="term" data-def="国家試験。応用的なIT知識を証明。実務2-3年が目安">応用情報技術者</span>の順で取得すると書類通過率が上がる。</p>
 </div>
 
 <p style="font-size:14px;font-weight:700;margin:24px 0 10px">年収期待値調整トーク3例</p>
@@ -1647,12 +1647,12 @@ function simulate(){
   var company=document.getElementById('sim-company').value;
   if(!type||!phase||!year||!company){alert('すべて選択してください');return}
   var base={
-    infra:{monitor:{1:[300,380],3:[350,420],5:[400,450]},build:{1:[400,480],3:[450,530],5:[500,580]},design:{1:[480,550],3:[530,620],5:[580,680]},lead:{1:[550,650],3:[600,700],5:[680,800]}},
-    fe:{monitor:{1:[330,400],3:[380,430],5:[420,470]},build:{1:[380,450],3:[500,580],5:[550,650]},design:{1:[450,550],3:[550,650],5:[620,720]},lead:{1:[550,650],3:[620,720],5:[700,800]}},
-    be:{monitor:{1:[350,420],3:[400,450],5:[430,480]},build:{1:[400,480],3:[480,580],5:[550,650]},design:{1:[480,580],3:[560,660],5:[620,750]},lead:{1:[560,660],3:[640,750],5:[720,800]}},
-    mobile:{monitor:{1:[350,420],3:[400,460],5:[440,500]},build:{1:[400,480],3:[480,580],5:[550,650]},design:{1:[480,580],3:[560,660],5:[620,750]},lead:{1:[560,650],3:[630,740],5:[700,800]}},
-    data:{monitor:{1:[370,440],3:[420,500],5:[470,550]},build:{1:[420,500],3:[550,650],5:[620,720]},design:{1:[500,600],3:[620,720],5:[700,800]},lead:{1:[600,700],3:[700,800],5:[750,900]}},
-    ml:{monitor:{1:[400,480],3:[460,550],5:[520,600]},build:{1:[450,550],3:[600,700],5:[680,780]},design:{1:[550,680],3:[680,800],5:[750,900]},lead:{1:[650,780],3:[750,900],5:[800,1000]}}
+    infra:{monitor:{1:[300,380],3:[350,420],5:[400,460]},build:{1:[400,500],3:[460,550],5:[520,600]},design:{1:[500,580],3:[550,650],5:[600,700]},lead:{1:[580,700],3:[650,780],5:[700,900]}},
+    fe:{monitor:{1:[300,370],3:[340,400],5:[380,440]},build:{1:[380,450],3:[470,560],5:[530,630]},design:{1:[450,550],3:[540,640],5:[600,700]},lead:{1:[540,640],3:[600,700],5:[680,800]}},
+    be:{monitor:{1:[300,380],3:[350,420],5:[400,460]},build:{1:[380,470],3:[460,560],5:[530,630]},design:{1:[460,560],3:[540,650],5:[600,720]},lead:{1:[540,650],3:[620,730],5:[700,800]}},
+    mobile:{monitor:{1:[300,380],3:[350,420],5:[400,460]},build:{1:[380,470],3:[460,560],5:[530,630]},design:{1:[460,560],3:[540,650],5:[600,720]},lead:{1:[540,640],3:[620,730],5:[700,800]}},
+    data:{monitor:{1:[350,420],3:[400,480],5:[450,530]},build:{1:[420,500],3:[530,630],5:[600,700]},design:{1:[500,600],3:[620,720],5:[700,800]},lead:{1:[600,700],3:[700,800],5:[750,900]}},
+    ml:{monitor:{1:[380,460],3:[440,530],5:[500,580]},build:{1:[450,550],3:[580,680],5:[660,760]},design:{1:[550,680],3:[680,800],5:[750,900]},lead:{1:[650,780],3:[750,900],5:[800,1000]}}
   };
   var companyRate={ses:0.9,jutaku:1.0,jisha:1.15,mega:1.25};
   var b=base[type][phase][year];
@@ -1669,9 +1669,10 @@ function simulate(){
     nextInfo='<p class="sim-next">次の工程（'+nextLabel[nextPhase[phase]]+'）に上がると: '+nmin+'万〜'+nmax+'万円</p>';
   }
   var advice=[];
-  if(phase==='monitor')advice.push('構築案件への異動 or 転職で +80〜130万');
-  if(company==='ses')advice.push('自社開発企業への転職で +15%（構造的な年収改善）');
-  if(type==='infra'&&phase!=='lead')advice.push('AWS資格(SAA)取得で +30〜50万の市場価値UP');
+  if(phase==='monitor')advice.push('工程アップ（構築/実装への移行）で +80〜150万。4つのレバーで最大効果');
+  if(company==='ses')advice.push('自社開発企業への転職で +15%（マージン構造の差が年収に直結）');
+  if(type==='infra'&&phase!=='lead')advice.push('AWS資格(SAA)取得で +30〜50万。クラウド人材の求人倍率は26.3倍で需給逼迫中');
+  if(type==='infra'&&phase==='build')advice.push('クラウド設計スキルを身につけるとSRE/クラウドアーキテクトへの道が開ける（年収700万+）');
   if(type==='fe'||type==='be')advice.push('設計経験を積むことで次の工程に上がれる');
   if(year==='1')advice.push('まず2年以上の実務経験を積むと書類通過率が上がる');
   if(type==='ml')advice.push('AI/ML領域は年収の天井が高い。LLM/RAG経験があるとさらに+100万');
